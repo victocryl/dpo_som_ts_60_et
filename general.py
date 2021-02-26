@@ -1,14 +1,25 @@
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
-import interface  # Это наш конвертированный файл дизайна
+import interface  # конвертированный файл дизайна
 
 class ExampleApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
-        super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        
+        super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
+        self.setupUi(self)  # нужно для инициализации design.py
+        self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
+
+
+
+
+
+
+
+
+
+
+
 
         # self.pushButton.clicked.connect(self.on_button)
 
