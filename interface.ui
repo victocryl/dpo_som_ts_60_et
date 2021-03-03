@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1266</width>
-    <height>764</height>
+    <height>771</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(42, 42, 42);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -33,7 +33,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(144, 144, 144);</string>
+       <string notr="true">background-color: rgb(255, 233, 155);</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <property name="leftMargin">
@@ -124,7 +124,7 @@
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(199, 199, 199);</string>
+         <string notr="true">background-color: rgb(255, 240, 178);</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -142,7 +142,7 @@
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(144, 144, 144);</string>
+            <string notr="true">background-color: rgb(255, 233, 155);</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <property name="leftMargin">
@@ -448,7 +448,7 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(199, 199, 199);</string>
+            <string notr="true">background-color: rgb(255, 240, 178);</string>
            </property>
            <property name="currentIndex">
             <number>0</number>
@@ -467,7 +467,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(144, 144, 144);</string>
+                <string notr="true">background-color: rgb(255, 233, 155);</string>
                </property>
                <layout class="QGridLayout" name="gridLayout_2">
                 <item row="15" column="0">
@@ -2839,7 +2839,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(144, 144, 144);</string>
+                <string notr="true">background-color: rgb(255, 233, 155);</string>
                </property>
                <layout class="QGridLayout" name="gridLayout">
                 <property name="leftMargin">
@@ -3245,7 +3245,7 @@
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(199, 199, 199);</string>
+         <string notr="true">background-color: rgb(255, 240, 178);</string>
         </property>
        </widget>
       </item>
@@ -3266,7 +3266,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(144, 144, 144);</string>
+       <string notr="true">background-color: rgb(255, 233, 155);</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="leftMargin">
