@@ -12,6 +12,9 @@ class ExampleApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
         self.common_init()
 
+        C = can_corresp.Can_corresp()
+        print (C.from_ukv_1_1)
+
 
 
     # @brief  Метод первичной инициализации интерфейса
