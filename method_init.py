@@ -5,13 +5,26 @@ import interface  # конвертированный файл дизайна
 
 class ExampleApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
-        
         super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
         self.setupUi(self)  # нужно для инициализации design.py
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
+        self.common_init()
 
 
 
+    # @brief  Метод первичной инициализации интерфейса
+    # @detail  Здесь задаются параметры интерфейса, которые будут отображаться сразу после загрузки приложения
+    # @param  None
+    # @retval None
+    def common_init(self):
+
+        # прописываем нули в лайнэдиты вкладки Команды
+        self.lineEdit_3.setText("0")
+        self.lineEdit_2.setText("0")
+        self.lineEdit.setText("0")
+        self.lineEdit_9.setText("0")
+        self.lineEdit_7.setText("0")
+        self.lineEdit_8.setText("0")
 
 
 
