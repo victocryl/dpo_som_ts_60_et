@@ -2,6 +2,8 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 import interface  # конвертированный файл дизайна
+import can_init  # модуль инициализации и управления каналом can
+import can_corresp  # модуль всей корреспонденции по can
 
 class ExampleApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
