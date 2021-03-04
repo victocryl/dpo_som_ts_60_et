@@ -1,10 +1,10 @@
 import sys
 from PyQt5 import QtWidgets
-import general
+import method_init
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
-    window = general.ExampleApp()           # Создаём объект класса ExampleApp
+    window = method_init.ExampleApp()           # Создаём объект класса ExampleApp
     window.show()   # показываем окно
     app.exec_()     # запускаем приложение
 
