@@ -3,17 +3,20 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 import interface  # конвертированный файл дизайна
 import can_init  # модуль инициализации и управления каналом can
-import can_corresp  # модуль всей корреспонденции по can
+import tab_commands  # модуль всей корреспонденции по can
 
-class ExampleApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
+class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
         super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
         self.setupUi(self)  # нужно для инициализации design.py
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
         self.common_init()
 
-        C = can_corresp.Can_corresp()
+        d = self
+
+        C = tab_commands.Can_corresp(d)
         print (C.from_ukv_1_1)
+
 
 
 

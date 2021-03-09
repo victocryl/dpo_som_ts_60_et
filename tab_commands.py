@@ -1,6 +1,6 @@
 
 class Can_corresp:
-    def __init__ (self):
+    def __init__ (self, D):
 
         # айдишники ДПО
         self.ID_TO_UKV_1 = 0x1C1
@@ -37,3 +37,20 @@ class Can_corresp:
         self.from_ukv_2_3 = [0,0,0,0,0,0,0,0]    # (0x275)
         self.from_ukv_2_4 = [0,0,0,0,0,0,0,0]    # (0x276)
         self.from_ukv_2_5 = [0,0,0,0,0,0,0,0]    # (0x277)
+
+        D.pushButton_4.clicked.connect(self.on_button)
+
+    def on_button(self):
+        #self.label.setText("dfdfg")
+        print("dfggfdbgfd")
+
+    # @brief  Метод слота при клике чекбокса Включить тестовый режим
+    # @param  None
+    # @retval None
+    def on_checkbox_7(self):
+        # считываем состояние чекбокса
+
+        # ветвление если чекед - одно, если анчекед - другое
+        # 1) загружаем бит в байт посылки
+        # 2) стираем бит из посылки
+        pass
