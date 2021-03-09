@@ -12,12 +12,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
         self.common_init()
 
-        d = self
-
-        C = tab_commands.Can_corresp(d)
-        print (C.from_ukv_1_1)
-
-
+        self.C = tab_commands.Commands(self)
 
 
     # @brief  Метод первичной инициализации интерфейса
@@ -37,13 +32,15 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
 
 
-
-
-
-
-
-        # self.pushButton.clicked.connect(self.on_button)
-
-    # def on_button(self):
+    # # @brief  Метод, реализующий действия по срабатыванию таймера.
+    # # @detail  Метод реализует следующие действия:
+    # # 1) Считываются галочки команд из закладки Комманды и их биты записываются в посылку tx (для обеих УКВ)
+    # # 2) Считываются параметры из закладки Комманды и их значения записываются в посылку tx (для обеих УКВ)
+    # # 3) Отправляются посылки tx (для обеих УКВ)
+    # # 4) Происходит получение входящих посылок в массивы rx (для обеих УКВ)
+    # # 5) Происходит распределение полученных данных в закладки Команды, Статусы, Ошибки, Параметры (для обеих УКВ)
+    # # @param  None
+    # # @retval None
+    # def on_timer(self):
     #     self.label.setText("dfdfg")
     #     print("dfggfdbgfd")
