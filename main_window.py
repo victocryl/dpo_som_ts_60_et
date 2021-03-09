@@ -1,18 +1,26 @@
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import QTimer
 import interface  # конвертированный файл дизайна
 import can_init  # модуль инициализации и управления каналом can
 import tab_commands  # модуль всей корреспонденции по can
 
 class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
+        
+        self.i = 0
         super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
         self.setupUi(self)  # нужно для инициализации design.py
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
         self.common_init()
+        self.t = QTimer(self)   # создаём объект таймера и запускаем его
+        self.t.start(1000)
 
+        # создаём экземпляр класса Commands и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
         self.C = tab_commands.Commands(self)
+
+        self.t.timeout.connect(self.on_timer)   
 
 
     # @brief  Метод первичной инициализации интерфейса
@@ -41,6 +49,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # # 5) Происходит распределение полученных данных в закладки Команды, Статусы, Ошибки, Параметры (для обеих УКВ)
     # # @param  None
     # # @retval None
-    # def on_timer(self):
-    #     self.label.setText("dfdfg")
-    #     print("dfggfdbgfd")
+    def on_timer(self):
+        self.i += 1
+        self.label_75.setNum(self.i)
