@@ -8,12 +8,13 @@ import tab_commands  # модуль всей корреспонденции по
 
 class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
-        
-        self.i = 0
         super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
         self.setupUi(self)  # нужно для инициализации design.py
+
+        self.i = 0  # счётчик срабатываний таймера
+        
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
-        self.common_init()
+        self.common_init()      # первичное оформление интерфейса
         self.t = QTimer(self)   # создаём объект таймера и запускаем его
         self.t.start(1000)
 
@@ -51,4 +52,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # # @retval None
     def on_timer(self):
         self.i += 1
-        self.label_75.setNum(self.i)
+        self.label_75.setNum(self.i)    # счётчик жизни
+
+        self.C.commands_reading()
+

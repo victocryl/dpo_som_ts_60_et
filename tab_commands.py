@@ -1,21 +1,19 @@
 # Данный модуль содержит атрибуты и методы для работы с вкладкой КОМАНДЫ
 
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, Qt
+
 class Commands:
     def __init__(self, mainwind):
+        self.mainwind = mainwind
 
-        mainwind.pushButton_4.clicked.connect(self.on_button)
-
-    def on_button(self):
-        #self.label.setText("dfdfg")
-        print("dfggfdbgfd")
-
-    # @brief  Метод слота при клике чекбокса Включить тестовый режим
+    # @brief  Метод чтения галочек на вкладке Команды
     # @param  None
     # @retval None
-    def on_checkbox_7(self):
+    def commands_reading(self):
         # считываем состояние чекбокса
+        
+        if self.mainwind.checkBox_7.checkState() == Qt.Checked:
+            print("checked")
+        else:
+            print("unchecked")
 
-        # ветвление если чекед - одно, если анчекед - другое
-        # 1) загружаем бит в байт посылки
-        # 2) стираем бит из посылки
-        pass
