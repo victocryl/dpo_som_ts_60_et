@@ -11,10 +11,12 @@ class Commands:
     # @param  None
     # @retval None
     def commands_reading(self):
-        # считываем состояние чекбокса
-        
+        # считываем состояние чекбоксов и проставляем биты в tx
+
+    ############# УКВ 1 ####################################################################
+        # бит тестового режима
         if self.mainwind.checkBox_7.checkState() == Qt.Checked:
-            print("checked")
+            self.mainwind.Can_cor.tx_ukv_1[0] |= sub.BIT0
         else:
-            print("unchecked")
+            self.mainwind.Can_cor.tx_ukv_1[0] &= ~sub.BIT0
 

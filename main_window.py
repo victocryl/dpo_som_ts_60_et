@@ -2,9 +2,11 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 from PyQt5.QtCore import QTimer
-import interface  # конвертированный файл дизайна
-import can_init  # модуль инициализации и управления каналом can
-import tab_commands  # модуль всей корреспонденции по can
+
+import interface            # конвертированный файл дизайна
+import can_init             # модуль инициализации и управления каналом can
+import can_correspondence   # модуль корреспонденции по can
+import tab_commands         # модуль всей корреспонденции по can
 
 class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
@@ -18,6 +20,9 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.t = QTimer(self)   # создаём объект таймера и запускаем его
         self.t.start(1000)
 
+        # создаём экземпляр класса Can_corresp
+        self.Can_cor = can_correspondence.Can_corresp()
+        
         # создаём экземпляр класса Commands и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
         self.C = tab_commands.Commands(self)
 
@@ -55,4 +60,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.label_75.setNum(self.i)    # счётчик жизни
 
         self.C.commands_reading()
+
+        print(self.Can_cor.tx_ukv_1[0])
 
