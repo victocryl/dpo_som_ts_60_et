@@ -62,9 +62,12 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.tx_ukv_1[7] = self.i
         self.Can_cor.tx_ukv_2[7] = self.i
         self.label_75.setNum(self.i)
+        self.label_79.setNum(self.i)
 
         # чтение команд и параметров вкладки Команды (УКВ1 и УКВ2)
         self.C.commands_reading()
 
-        print(self.Can_cor.tx_ukv_1)
+        ################ ТЕСТЫ #####################################################################################
+        #print(self.Can_cor.tx_ukv_1)
+        print(self.Can_cor.tx_ukv_2)
 
