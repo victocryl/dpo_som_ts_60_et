@@ -49,15 +49,25 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         ######################### тесты ################################################
 
-        # Инициализируем массив id 0x264 (там все статусы)
+        # Инициализируем массив id 0x264 УКВ1 (там все статусы)
         self.Can_cor.rx_ukv_1_2[0] = 0b00000000
         self.Can_cor.rx_ukv_1_2[1] = 0b00000000
-        self.Can_cor.rx_ukv_1_2[2] = 0b00001000
+        self.Can_cor.rx_ukv_1_2[2] = 0b00001000 # статусы заканчиваются
         self.Can_cor.rx_ukv_1_2[3] = 0b00000000
         self.Can_cor.rx_ukv_1_2[4] = 0b00000000
         self.Can_cor.rx_ukv_1_2[5] = 0b00000000
         self.Can_cor.rx_ukv_1_2[6] = 0b00000000
         self.Can_cor.rx_ukv_1_2[7] = 0b00000000
+
+        # Инициализируем массив id 0x274 УКВ2 (там все статусы)
+        self.Can_cor.rx_ukv_2_2[0] = 0b00000000
+        self.Can_cor.rx_ukv_2_2[1] = 0b00000000
+        self.Can_cor.rx_ukv_2_2[2] = 0b00001000 # статусы заканчиваются
+        self.Can_cor.rx_ukv_2_2[3] = 0b00000000
+        self.Can_cor.rx_ukv_2_2[4] = 0b00000000
+        self.Can_cor.rx_ukv_2_2[5] = 0b00000000
+        self.Can_cor.rx_ukv_2_2[6] = 0b00000000
+        self.Can_cor.rx_ukv_2_2[7] = 0b00000000
 
 
 
