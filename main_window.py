@@ -16,11 +16,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setupUi(self)  # нужно для инициализации design.py
 
         self.i = 0  # счётчик срабатываний таймера
-        
-        self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
-        self.common_init()      # первичное оформление интерфейса
-        self.t = QTimer(self)   # создаём объект таймера и запускаем его
-        self.t.start(1000)
 
         # создаём экземпляр класса Can_corresp
         self.Can_cor = can_correspondence.Can_corresp()
@@ -28,6 +23,11 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.C = tab_commands.Commands(self)
         # создаём экземпляр класса Status и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
         self.S = tab_statuses.Statuses(self)
+
+        self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
+        self.common_init()      # первичное оформление интерфейса
+        self.t = QTimer(self)   # создаём объект таймера и запускаем его
+        self.t.start(1000)
 
         ################ КОННЕКТЫ ################################################################################
         self.t.timeout.connect(self.on_timer)   
@@ -46,6 +46,19 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.lineEdit_9.setText("0")
         self.lineEdit_7.setText("0")
         self.lineEdit_8.setText("0")
+
+        ######################### тесты ################################################
+
+        # Инициализируем массив id 0x264 (там все статусы)
+        self.Can_cor.rx_ukv_1_2[0] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[1] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[2] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[3] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[4] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[5] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[6] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[7] = 0b00000000
+
 
 
 
@@ -77,4 +90,5 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         ################ ТЕСТЫ #####################################################################################
         # print(self.Can_cor.tx_ukv_1)
         # print(self.Can_cor.tx_ukv_2)
+        print(self.Can_cor.rx_ukv_1_2[0])
 

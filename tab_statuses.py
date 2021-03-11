@@ -8,4 +8,4 @@ class Statuses:
         self.mainwind = mainwind
 
     def statuses_reading(self):
-        print('xsdsdvs')
+        pass
