@@ -56,9 +56,14 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # # @param  None
     # # @retval None
     def on_timer(self):
-        self.i += 1
-        self.label_75.setNum(self.i)    # счётчик жизни
 
+        # счётчик жизни
+        self.i += 1
+        self.Can_cor.tx_ukv_1[7] = self.i
+        self.Can_cor.tx_ukv_2[7] = self.i
+        self.label_75.setNum(self.i)
+
+        # чтение команд и параметров вкладки Команды (УКВ1 и УКВ2)
         self.C.commands_reading()
 
         print(self.Can_cor.tx_ukv_1)

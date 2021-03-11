@@ -7,18 +7,36 @@ class Commands:
     def __init__(self, mainwind):
         self.mainwind = mainwind
 
+        # коннекты УКВ1
+        self.mainwind.pushButton_4.clicked.connect(self.on_button_4)                # скор. прит. вент.
+        self.mainwind.lineEdit_3.textChanged.connect(self.on_lineEdit_3_changed)
+        self.mainwind.pushButton_3.clicked.connect(self.on_button_3)                # вент. конденсатора
+        self.mainwind.lineEdit_2.textChanged.connect(self.on_lineEdit_2_changed)
+        self.mainwind.pushButton_2.clicked.connect(self.on_button_2)                # вент. наруж. возд
+        self.mainwind.lineEdit.textChanged.connect(self.on_lineEdit_changed)
+
+
+
+
+
+
+##########################################################################################################
+################## МЕТОДЫ ################################################################################
+##########################################################################################################
+
     # @brief  Метод чтения галочек на вкладке Команды
     # @detail Cчитываем состояние чекбоксов и проставляем биты в посылки tx
     # @param  None
     # @retval None
     def commands_reading(self):
-        
     ############# УКВ 1 ####################################################################
         # бит тестового режима
         if self.mainwind.checkBox_7.checkState() == Qt.Checked:
             self.mainwind.Can_cor.tx_ukv_1[0] |= sub.BIT0
+            self.mainwind.label_12.setText('ТЕСТОВЫЙ')
         else:
             self.mainwind.Can_cor.tx_ukv_1[0] &= ~sub.BIT0
+            self.mainwind.label_12.setText('ОТКЛЮЧЕНО')
         
         # бит компрессор 1
         if self.mainwind.checkBox_8.checkState() == Qt.Checked:
@@ -104,3 +122,72 @@ class Commands:
         else:
             self.mainwind.Can_cor.tx_ukv_1[2] &= ~sub.BIT6
 
+##########################################################################################################
+################## СЛОТЫ #################################################################################
+##########################################################################################################
+
+    # @brief  слот на нажатие кнопки Задать скорость прит. вент.
+    # @param  None
+    # @retval None
+    def on_button_4(self):
+        self.str = int(self.mainwind.lineEdit_3.text()) # забираем строку из lineedit И преобр. в int
+        if (self.str < 0 or self.str > 100):
+            self.mainwind.label_4.setText('НЕПРАВИЛЬНЫЙ ФОРМАТ ВВОДИМОГО ЧИСЛА (0 < число <100)')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
+        else:
+            self.mainwind.Can_cor.tx_ukv_1[4] = self.str
+            self.mainwind.label_4.setText('')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем текст чёрным
+            self.mainwind.label_15.setText('задано')
+            self.mainwind.label_15.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");
+
+    # @brief  слот редактирование lineedit Задать скорость прит. вент.
+    # @param  None
+    # @retval None
+    def on_lineEdit_3_changed(self):
+        self.mainwind.label_15.setText('не задано')
+        self.mainwind.label_15.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
+
+    # @brief  слот на нажатие кнопки Задать скорость вент. конденс.
+    # @param  None
+    # @retval None
+    def on_button_3(self):
+        self.str = int(self.mainwind.lineEdit_2.text()) # забираем строку из lineedit И преобр. в int
+        if (self.str < 0 or self.str > 100):
+            self.mainwind.label_4.setText('НЕПРАВИЛЬНЫЙ ФОРМАТ ВВОДИМОГО ЧИСЛА (0 < число <100)')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
+        else:
+            self.mainwind.Can_cor.tx_ukv_1[5] = self.str
+            self.mainwind.label_4.setText('')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем текст чёрным
+            self.mainwind.label_14.setText('задано')
+            self.mainwind.label_14.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");
+
+    # @brief  слот редактирование lineedit Задать скорость вент. конденс.
+    # @param  None
+    # @retval None
+    def on_lineEdit_2_changed(self):
+        self.mainwind.label_14.setText('не задано')
+        self.mainwind.label_14.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
+
+    # @brief  слот на нажатие кнопки Задать скорость вент. наруж. воздуха
+    # @param  None
+    # @retval None
+    def on_button_2(self):
+        self.str = int(self.mainwind.lineEdit.text()) # забираем строку из lineedit И преобр. в int
+        if (self.str < 0 or self.str > 100):
+            self.mainwind.label_4.setText('НЕПРАВИЛЬНЫЙ ФОРМАТ ВВОДИМОГО ЧИСЛА (0 < число <100)')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
+        else:
+            self.mainwind.Can_cor.tx_ukv_1[6] = self.str
+            self.mainwind.label_4.setText('')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем текст чёрным
+            self.mainwind.label_13.setText('задано')
+            self.mainwind.label_13.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");
+
+    # @brief  слот редактирование lineedit Задать скорость вент. наруж. воздуха
+    # @param  None
+    # @retval None
+    def on_lineEdit_changed(self):
+        self.mainwind.label_13.setText('не задано')
+        self.mainwind.label_13.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
