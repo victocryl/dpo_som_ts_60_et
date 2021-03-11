@@ -5,8 +5,10 @@ from PyQt5.QtCore import QTimer
 
 import interface            # конвертированный файл дизайна
 import can_init             # модуль инициализации и управления каналом can
-import can_correspondence   # модуль корреспонденции по can
-import tab_commands         # модуль всей корреспонденции по can
+import can_correspondence   # модуль всей корреспонденции по can
+import tab_commands         # модуль вкладки Комманды
+import tab_statuses         # модуль вкладки Статусы
+
 
 class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     def __init__(self):
@@ -22,10 +24,12 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # создаём экземпляр класса Can_corresp
         self.Can_cor = can_correspondence.Can_corresp()
-        
         # создаём экземпляр класса Commands и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
         self.C = tab_commands.Commands(self)
+        # создаём экземпляр класса Status и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
+        self.S = tab_statuses.Statuses(self)
 
+        ################ КОННЕКТЫ ################################################################################
         self.t.timeout.connect(self.on_timer)   
 
 
@@ -64,8 +68,11 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.label_75.setNum(self.i)
         self.label_79.setNum(self.i)
 
-        # чтение команд и параметров вкладки Команды (УКВ1 и УКВ2)
+        # чтение команд и параметров вкладки Команды (УКВ1 и УКВ2) и запись их в массивы tx
         self.C.commands_reading()
+
+        # получение из rx-массивов статусов систем (УКВ1 и УКВ2) и проставление галочек на вкладке Статусы
+        self.S.statuses_reading()
 
         ################ ТЕСТЫ #####################################################################################
         # print(self.Can_cor.tx_ukv_1)
