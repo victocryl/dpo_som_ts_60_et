@@ -52,7 +52,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         # Инициализируем массив id 0x264 (там все статусы)
         self.Can_cor.rx_ukv_1_2[0] = 0b00000000
         self.Can_cor.rx_ukv_1_2[1] = 0b00000000
-        self.Can_cor.rx_ukv_1_2[2] = 0b00000000
+        self.Can_cor.rx_ukv_1_2[2] = 0b00001000
         self.Can_cor.rx_ukv_1_2[3] = 0b00000000
         self.Can_cor.rx_ukv_1_2[4] = 0b00000000
         self.Can_cor.rx_ukv_1_2[5] = 0b00000000
@@ -90,5 +90,5 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         ################ ТЕСТЫ #####################################################################################
         # print(self.Can_cor.tx_ukv_1)
         # print(self.Can_cor.tx_ukv_2)
-        print(self.Can_cor.rx_ukv_1_2[0])
+        # print(self.Can_cor.rx_ukv_1_2[0])
 

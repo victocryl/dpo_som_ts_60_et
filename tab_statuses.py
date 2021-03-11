@@ -7,6 +7,12 @@ class Statuses:
     def __init__(self, mainwind):
         self.mainwind = mainwind
 
+
+
+##########################################################################################################
+################## МЕТОДЫ ################################################################################
+##########################################################################################################
+
     def statuses_reading(self):
         ############# УКВ 1 ####################################################################
         # бит Приточный вентилятор 1 включен
@@ -24,3 +30,93 @@ class Statuses:
         else:
             self.mainwind.checkBox_144.setCheckState(Qt.Unchecked)
             self.mainwind.checkBox_54.setCheckState(Qt.Unchecked)
+        
+        # бит Воздушная заслонка открыта
+        if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT2):
+            self.mainwind.checkBox_148.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_148.setCheckState(Qt.Unchecked)
+
+        # бит Вентилятор наружного воздуха включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT3):
+            self.mainwind.checkBox_161.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_161.setCheckState(Qt.Unchecked)
+        
+        # бит Калорифер 1 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT5):
+            self.mainwind.checkBox_143.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_143.setCheckState(Qt.Unchecked)
+        
+        # бит Калорифер 2 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT6):
+            self.mainwind.checkBox_159.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_159.setCheckState(Qt.Unchecked)
+        
+        # бит Калорифер 2 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT7):
+            self.mainwind.checkBox_175.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_175.setCheckState(Qt.Unchecked)
+        
+        # бит Клапан 1-го контура включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[1] & sub.BIT1):
+            self.mainwind.checkBox_163.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_163.setCheckState(Qt.Unchecked)
+        
+        # бит Компрессор 1 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[1] & sub.BIT2):
+            self.mainwind.checkBox_152.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_152.setCheckState(Qt.Unchecked)
+        
+        # бит Байпас контура 1 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[1] & sub.BIT3):
+            self.mainwind.checkBox_142.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_142.setCheckState(Qt.Unchecked)
+        
+        # бит Регулировка произв. компрессора 1 включена
+        if (self.mainwind.Can_cor.rx_ukv_1_2[1] & sub.BIT5):
+            self.mainwind.checkBox_160.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_160.setCheckState(Qt.Unchecked)
+        
+        # бит Компрессор 2 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[1] & sub.BIT6):
+            self.mainwind.checkBox_165.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_165.setCheckState(Qt.Unchecked)
+        
+        # бит Регулировка произв. компрессора 2 включена
+        if (self.mainwind.Can_cor.rx_ukv_1_2[1] & sub.BIT7):
+            self.mainwind.checkBox_146.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_146.setCheckState(Qt.Unchecked)
+        
+        # бит Вентилятор конденсатора 1 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[2] & sub.BIT1):
+            self.mainwind.checkBox_150.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_2.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_150.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_2.setCheckState(Qt.Unchecked)
+        
+        # бит Вентилятор конденсатора 2 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[2] & sub.BIT2):
+            self.mainwind.checkBox_174.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_3.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_174.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_3.setCheckState(Qt.Unchecked)
+        
+        # бит Вентилятор конденсатора 3 включен
+        if (self.mainwind.Can_cor.rx_ukv_1_2[2] & sub.BIT3):
+            self.mainwind.checkBox_176.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_4.setCheckState(Qt.Checked)
+        else:
+            self.mainwind.checkBox_176.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_4.setCheckState(Qt.Unchecked)
