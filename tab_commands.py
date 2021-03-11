@@ -1,6 +1,7 @@
 # Данный модуль содержит атрибуты и методы для работы с вкладкой КОМАНДЫ
 
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, Qt
+import sub
 
 class Commands:
     def __init__(self, mainwind):
