@@ -68,6 +68,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.C.commands_reading()
 
         ################ ТЕСТЫ #####################################################################################
-        #print(self.Can_cor.tx_ukv_1)
-        print(self.Can_cor.tx_ukv_2)
+        # print(self.Can_cor.tx_ukv_1)
+        # print(self.Can_cor.tx_ukv_2)
 

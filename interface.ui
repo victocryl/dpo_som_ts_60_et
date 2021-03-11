@@ -451,7 +451,7 @@
             <string notr="true">background-color: rgb(255, 240, 178);</string>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tab">
             <attribute name="title">
@@ -3166,7 +3166,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Калорифер 1 вклдчен</string>
+                   <string>Калорифер 1 включен</string>
                   </property>
                  </widget>
                 </item>
@@ -3274,7 +3274,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Калорифер 2 вклдчен</string>
+                   <string>Калорифер 2 включен</string>
                   </property>
                  </widget>
                 </item>
@@ -3555,7 +3555,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Калорифер 3 вклдчен</string>
+                   <string>Калорифер 3 включен</string>
                   </property>
                  </widget>
                 </item>
@@ -8055,7 +8055,7 @@
             <string notr="true">background-color: rgb(255, 240, 178);</string>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tab_7">
             <attribute name="title">
@@ -10770,7 +10770,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Калорифер 1 вклдчен</string>
+                   <string>Калорифер 1 включен</string>
                   </property>
                  </widget>
                 </item>
@@ -10878,7 +10878,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Калорифер 2 вклдчен</string>
+                   <string>Калорифер 2 включен</string>
                   </property>
                  </widget>
                 </item>
@@ -11159,7 +11159,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Калорифер 3 вклдчен</string>
+                   <string>Калорифер 3 включен</string>
                   </property>
                  </widget>
                 </item>
