@@ -61,5 +61,5 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         self.C.commands_reading()
 
-        print(self.Can_cor.tx_ukv_1[0])
+        print(self.Can_cor.tx_ukv_1)
 
