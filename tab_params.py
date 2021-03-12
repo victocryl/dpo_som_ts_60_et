@@ -22,6 +22,7 @@ class Params:
         self.common_info_retrieving()     # считываем общую инфу
         self.params_retrieving_265_275()  # считываем параметры из rx265/275
         self.params_retrieving_266_276()  # считываем параметры из rx266/276
+        self.params_retrieving_267_277()  # считываем параметры из rx267/277
 
 
     # @brief  Метод считывания режимов из посылки rx263/273
@@ -109,6 +110,7 @@ class Params:
         life_cnt_2 = self.mainwind.Can_cor.rx_ukv_2_1[7]
         self.mainwind.label_79.setNum(life_cnt_2)
 
+
     # @brief  Метод считывания параметров из rx265/275
     # @param  None
     # @retval None
@@ -185,4 +187,63 @@ class Params:
         # Высокое давление контура 2
         c_1_h_press_2 = self.mainwind.Can_cor.rx_ukv_2_4[7] * 0.15
         self.mainwind.label_263.setNum(c_1_h_press_2)
+    
+
+    # @brief  Метод считывания параметров из rx267/277
+    # @param  None
+    # @retval None
+    def params_retrieving_267_277(self):
+        ############ УКВ1, 267 ############################################################
+        # PID CO2       
+        pid_CO2_1 = self.mainwind.Can_cor.rx_ukv_1_5[0]
+        self.mainwind.label_179.setNum(pid_CO2_1)
+        # PID отопления
+        pid_heat_1 = self.mainwind.Can_cor.rx_ukv_1_5[1]
+        self.mainwind.label_180.setNum(pid_heat_1)
+        # PID охлаждения
+        pid_cool_1 = self.mainwind.Can_cor.rx_ukv_1_5[2]
+        self.mainwind.label_181.setNum(pid_cool_1)
+        # PID мощности отопления
+        pid_pwr_heat_1 = self.mainwind.Can_cor.rx_ukv_1_5[3]
+        self.mainwind.label_182.setNum(pid_pwr_heat_1)
+        # PID мощности охлаждения
+        pid_pwr_cool_1 = self.mainwind.Can_cor.rx_ukv_1_5[4]
+        self.mainwind.label_183.setNum(pid_pwr_cool_1)
+        # Влажность наружного воздуха
+        amb_humid_1 = self.mainwind.Can_cor.rx_ukv_1_5[5]
+        self.mainwind.label_184.setNum(amb_humid_1)
+        # Влажность воздуха в салоне
+        sal_humid_1 = self.mainwind.Can_cor.rx_ukv_1_5[6]
+        self.mainwind.label_102.setNum(sal_humid_1)
+
+        ############ УКВ2, 277 ############################################################
+        # PID CO2       
+        pid_CO2_2 = self.mainwind.Can_cor.rx_ukv_2_5[0]
+        self.mainwind.label_271.setNum(pid_CO2_1)
+        # PID отопления
+        pid_heat_2 = self.mainwind.Can_cor.rx_ukv_2_5[1]
+        self.mainwind.label_287.setNum(pid_heat_1)
+        # PID охлаждения
+        pid_cool_2 = self.mainwind.Can_cor.rx_ukv_2_5[2]
+        self.mainwind.label_294.setNum(pid_cool_1)
+        # PID мощности отопления
+        pid_pwr_heat_2 = self.mainwind.Can_cor.rx_ukv_2_5[3]
+        self.mainwind.label_257.setNum(pid_pwr_heat_1)
+        # PID мощности охлаждения
+        pid_pwr_cool_2 = self.mainwind.Can_cor.rx_ukv_2_5[4]
+        self.mainwind.label_291.setNum(pid_pwr_cool_1)
+        # Влажность наружного воздуха
+        amb_humid_2 = self.mainwind.Can_cor.rx_ukv_2_5[5]
+        self.mainwind.label_276.setNum(amb_humid_1)
+        # Влажность воздуха в салоне
+        sal_humid_2 = self.mainwind.Can_cor.rx_ukv_2_5[6]
+        self.mainwind.label_268.setNum(sal_humid_1)
+
+
+
+
+
+
+
+
         
