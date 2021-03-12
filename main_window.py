@@ -115,6 +115,30 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.rx_ukv_2_3[7] = 0b00000111
 
 
+        # Инициализируем массив id 0x266 УКВ1
+        self.Can_cor.rx_ukv_1_4[0] = 0b11101100
+        self.Can_cor.rx_ukv_1_4[1] = 0b00000000
+        self.Can_cor.rx_ukv_1_4[2] = 0
+        self.Can_cor.rx_ukv_1_4[3] = 0
+        self.Can_cor.rx_ukv_1_4[4] = 0b00000011
+        self.Can_cor.rx_ukv_1_4[5] = 0b00000011
+        self.Can_cor.rx_ukv_1_4[6] = 0b00000011
+        self.Can_cor.rx_ukv_1_4[7] = 0b00000011
+        # Инициализируем массив id 0x276 УКВ2
+        self.Can_cor.rx_ukv_2_4[0] = 0b11101100
+        self.Can_cor.rx_ukv_2_4[1] = 0b00000000
+        self.Can_cor.rx_ukv_2_4[2] = 0
+        self.Can_cor.rx_ukv_2_4[3] = 0
+        self.Can_cor.rx_ukv_2_4[4] = 0b00000011
+        self.Can_cor.rx_ukv_2_4[5] = 0b00000011
+        self.Can_cor.rx_ukv_2_4[6] = 0b00000011
+        self.Can_cor.rx_ukv_2_4[7] = 0b00000011
+
+
+
+        
+
+
 
 
 

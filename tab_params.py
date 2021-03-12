@@ -20,7 +20,8 @@ class Params:
         
         self.modes_retrieving()           # считываем режимы работы
         self.common_info_retrieving()     # считываем общую инфу
-        self.params_retrieving_265_275()  # считываем общую инфу
+        self.params_retrieving_265_275()  # считываем параметры из rx265/275
+        self.params_retrieving_266_276()  # считываем параметры из rx266/276
 
 
     # @brief  Метод считывания режимов из посылки rx263/273
@@ -145,4 +146,43 @@ class Params:
         # Датчик СО2
         sens_CO2_2 = (self.mainwind.Can_cor.rx_ukv_2_3[6] | (self.mainwind.Can_cor.rx_ukv_2_3[7] << 8))
         self.mainwind.label_273.setNum(sens_CO2_2)
+
+
+    # @brief  Метод считывания параметров из rx266/276
+    # @param  None
+    # @retval None
+    def params_retrieving_266_276(self):
+        ############ УКВ1, 266 ############################################################
+        # Температура приточного воздуха        
+        sup_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_4[0] | (self.mainwind.Can_cor.rx_ukv_1_4[1] << 8)) / 10
+        self.mainwind.label_174.setNum(sup_temp_1)
+        # Низкое давление контура 1
+        c_1_l_press_1 = self.mainwind.Can_cor.rx_ukv_1_4[4] * 0.05
+        self.mainwind.label_175.setNum(c_1_l_press_1)
+        # Высокое давление контура 1
+        c_1_h_press_1 = self.mainwind.Can_cor.rx_ukv_1_4[5] * 0.15
+        self.mainwind.label_176.setNum(c_1_h_press_1)
+        # Низкое давление контура 2
+        c_1_l_press_1 = self.mainwind.Can_cor.rx_ukv_1_4[6] * 0.05
+        self.mainwind.label_177.setNum(c_1_l_press_1)
+        # Высокое давление контура 2
+        c_1_h_press_1 = self.mainwind.Can_cor.rx_ukv_1_4[7] * 0.15
+        self.mainwind.label_178.setNum(c_1_h_press_1)
+
+        ############ УКВ2, 276 ############################################################
+        # Температура приточного воздуха        
+        sup_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_4[0] | (self.mainwind.Can_cor.rx_ukv_2_4[1] << 8)) / 10
+        self.mainwind.label_289.setNum(sup_temp_2)
+        # Низкое давление контура 1
+        c_1_l_press_2 = self.mainwind.Can_cor.rx_ukv_2_4[4] * 0.05
+        self.mainwind.label_249.setNum(c_1_l_press_2)
+        # Высокое давление контура 1
+        c_1_h_press_2 = self.mainwind.Can_cor.rx_ukv_2_4[5] * 0.15
+        self.mainwind.label_252.setNum(c_1_h_press_2)
+        # Низкое давление контура 2
+        c_1_l_press_2 = self.mainwind.Can_cor.rx_ukv_2_4[6] * 0.05
+        self.mainwind.label_288.setNum(c_1_l_press_2)
+        # Высокое давление контура 2
+        c_1_h_press_2 = self.mainwind.Can_cor.rx_ukv_2_4[7] * 0.15
+        self.mainwind.label_263.setNum(c_1_h_press_2)
         
