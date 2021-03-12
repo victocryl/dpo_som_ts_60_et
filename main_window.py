@@ -57,8 +57,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # Инициализируем массив id 0x263 УКВ1 (режимы, параметры)
         self.Can_cor.rx_ukv_1_1[0] = 0b00000000
-        self.Can_cor.rx_ukv_1_1[1] = 0b00000000
-        self.Can_cor.rx_ukv_1_1[2] = 0b00000000
+        self.Can_cor.rx_ukv_1_1[1] = 0b01000001
+        self.Can_cor.rx_ukv_1_1[2] = 0b00000001
         self.Can_cor.rx_ukv_1_1[3] = 0b00000000
         self.Can_cor.rx_ukv_1_1[4] = 0b00000000
         self.Can_cor.rx_ukv_1_1[5] = 0b00000000

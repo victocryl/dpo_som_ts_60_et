@@ -21,6 +21,16 @@ class Params:
         # считываем режимы работы
         self.modes_reading()
 
+        # далее читаем параметры
+        ############# УКВ 1 ####################################################################
+
+        # температура наружного воздуха
+        amb_temp = (self.mainwind.Can_cor.rx_ukv_1_1[1] | (self.mainwind.Can_cor.rx_ukv_1_1[2] << 8)) / 10
+        self.mainwind.label_303.setNum(amb_temp)
+
+
+
+
 
     # @brief  Метод считывания режимов из посылки rx263/273
     # @param  None
