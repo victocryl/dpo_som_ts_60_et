@@ -59,21 +59,21 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.rx_ukv_1_1[0] = 0b00000000
         self.Can_cor.rx_ukv_1_1[1] = 0b01000001
         self.Can_cor.rx_ukv_1_1[2] = 0b00000001
-        self.Can_cor.rx_ukv_1_1[3] = 0b00000000
+        self.Can_cor.rx_ukv_1_1[3] = 0b11101101
         self.Can_cor.rx_ukv_1_1[4] = 0b00000000
-        self.Can_cor.rx_ukv_1_1[5] = 0b00000000
-        self.Can_cor.rx_ukv_1_1[6] = 0b00000000
-        self.Can_cor.rx_ukv_1_1[7] = 0b00000000
+        self.Can_cor.rx_ukv_1_1[5] = 0b00010101
+        self.Can_cor.rx_ukv_1_1[6] = 0b01111111
+        self.Can_cor.rx_ukv_1_1[7] = 0b00000100
 
         # Инициализируем массив id 0x273 УКВ2 (режимы, параметры)
         self.Can_cor.rx_ukv_2_1[0] = 0b00000000
-        self.Can_cor.rx_ukv_2_1[1] = 0b00000000
-        self.Can_cor.rx_ukv_2_1[2] = 0b00000000
-        self.Can_cor.rx_ukv_2_1[3] = 0b00000000
+        self.Can_cor.rx_ukv_2_1[1] = 0b01000001
+        self.Can_cor.rx_ukv_2_1[2] = 0b00000001
+        self.Can_cor.rx_ukv_2_1[3] = 0b11101101
         self.Can_cor.rx_ukv_2_1[4] = 0b00000000
-        self.Can_cor.rx_ukv_2_1[5] = 0b00000000
-        self.Can_cor.rx_ukv_2_1[6] = 0b00000000
-        self.Can_cor.rx_ukv_2_1[7] = 0b00000000
+        self.Can_cor.rx_ukv_2_1[5] = 0b00010101
+        self.Can_cor.rx_ukv_2_1[6] = 0b01111111
+        self.Can_cor.rx_ukv_2_1[7] = 0b00000100
         
         # Инициализируем массив id 0x264 УКВ1 (там все статусы)
         self.Can_cor.rx_ukv_1_2[0] = 0b00000000
@@ -110,12 +110,12 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # @retval None
     def on_timer(self):
 
-        # счётчик жизни
-        self.i += 1
-        self.Can_cor.tx_ukv_1[7] = self.i
-        self.Can_cor.tx_ukv_2[7] = self.i
-        self.label_75.setNum(self.i)
-        self.label_79.setNum(self.i)
+        # счётчик жизни ДПО
+        # self.i += 1
+        # self.Can_cor.tx_ukv_1[7] = self.i
+        # self.Can_cor.tx_ukv_2[7] = self.i
+        # self.label_75.setNum(self.i)
+        # self.label_79.setNum(self.i)
 
         # чтение команд и параметров вкладки Команды (УКВ1 и УКВ2) и запись их в массивы tx
         self.C.commands_reading()
