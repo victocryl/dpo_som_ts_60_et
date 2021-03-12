@@ -9,6 +9,7 @@ import can_correspondence   # модуль всей корреспонденци
 import tab_commands         # модуль вкладки Комманды
 import tab_statuses         # модуль вкладки Статусы
 import tab_failuries        # модуль вкладки Ошибки
+import tab_params           # модуль вкладки Параметры
 
 
 class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
@@ -26,6 +27,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.S = tab_statuses.Statuses(self)
         # создаём экземпляр класса Failuries и передаём ему экземпляр класса MainWinowApp
         self.F = tab_failuries.Failuries(self)
+        # создаём экземпляр класса Params и передаём ему экземпляр класса MainWinowApp
+        self.P = tab_params.Params(self)
 
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
         self.common_init()      # первичное оформление интерфейса
@@ -100,6 +103,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.S.statuses_reading()
         # получение из rx-массивов ошибок систем (УКВ1 и УКВ2) и проставление галочек на вкладке Ошибки
         self.F.failuries_reading()
+        # получение из rx-массивов параметров систем (УКВ1 и УКВ2) и отображение их во вкладке Параметры
+        self.P.params_reading()
 
         ################ ТЕСТЫ #####################################################################################
         # print(self.Can_cor.tx_ukv_1)
