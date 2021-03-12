@@ -64,7 +64,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.rx_ukv_1_1[5] = 0b00010101
         self.Can_cor.rx_ukv_1_1[6] = 0b01111111
         self.Can_cor.rx_ukv_1_1[7] = 0b00000100
-
         # Инициализируем массив id 0x273 УКВ2 (режимы, параметры)
         self.Can_cor.rx_ukv_2_1[0] = 0b00000000
         self.Can_cor.rx_ukv_2_1[1] = 0b01000001
@@ -74,6 +73,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.rx_ukv_2_1[5] = 0b00010101
         self.Can_cor.rx_ukv_2_1[6] = 0b01111111
         self.Can_cor.rx_ukv_2_1[7] = 0b00000100
+
         
         # Инициализируем массив id 0x264 УКВ1 (там все статусы)
         self.Can_cor.rx_ukv_1_2[0] = 0b00000000
@@ -84,7 +84,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.rx_ukv_1_2[5] = 0b00000000
         self.Can_cor.rx_ukv_1_2[6] = 0b00000000
         self.Can_cor.rx_ukv_1_2[7] = 0b00000000
-
         # Инициализируем массив id 0x274 УКВ2 (там все статусы)
         self.Can_cor.rx_ukv_2_2[0] = 0b00000000
         self.Can_cor.rx_ukv_2_2[1] = 0b00000000
@@ -94,6 +93,26 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.rx_ukv_2_2[5] = 0b00000000
         self.Can_cor.rx_ukv_2_2[6] = 0b00000000
         self.Can_cor.rx_ukv_2_2[7] = 0b00000000
+
+
+        # Инициализируем массив id 0x265 УКВ1
+        self.Can_cor.rx_ukv_1_3[0] = 45
+        self.Can_cor.rx_ukv_1_3[1] = 55
+        self.Can_cor.rx_ukv_1_3[2] = 65
+        self.Can_cor.rx_ukv_1_3[3] = 0
+        self.Can_cor.rx_ukv_1_3[4] = 0b11011111
+        self.Can_cor.rx_ukv_1_3[5] = 0b00000000
+        self.Can_cor.rx_ukv_1_3[6] = 0b01010100
+        self.Can_cor.rx_ukv_1_3[7] = 0b00000111
+        # Инициализируем массив id 0x275 УКВ2
+        self.Can_cor.rx_ukv_2_3[0] = 45
+        self.Can_cor.rx_ukv_2_3[1] = 55
+        self.Can_cor.rx_ukv_2_3[2] = 65
+        self.Can_cor.rx_ukv_2_3[3] = 0
+        self.Can_cor.rx_ukv_2_3[4] = 0b11011111
+        self.Can_cor.rx_ukv_2_3[5] = 0b00000000
+        self.Can_cor.rx_ukv_2_3[6] = 0b01010100
+        self.Can_cor.rx_ukv_2_3[7] = 0b00000111
 
 
 

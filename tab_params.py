@@ -18,14 +18,15 @@ class Params:
     # @retval None
     def params_reading(self):
         
-        self.modes_reading()    # считываем режимы работы
-        self.common_info_reading()  # считываем общую инфу
+        self.modes_retrieving()           # считываем режимы работы
+        self.common_info_retrieving()     # считываем общую инфу
+        self.params_retrieving_265_275()  # считываем общую инфу
 
 
     # @brief  Метод считывания режимов из посылки rx263/273
     # @param  None
     # @retval None
-    def modes_reading(self):
+    def modes_retrieving(self):
 
         ############# УКВ 1 ####################################################################
         if (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT0):
@@ -71,7 +72,7 @@ class Params:
     # @brief  Метод считывания общей информации из посылки rx263/273
     # @param  None
     # @retval None
-    def common_info_reading(self):
+    def common_info_retrieving(self):
         
         ############# УКВ 1 ####################################################################
         # температура наружного воздуха
@@ -107,4 +108,41 @@ class Params:
         life_cnt_2 = self.mainwind.Can_cor.rx_ukv_2_1[7]
         self.mainwind.label_79.setNum(life_cnt_2)
 
+    # @brief  Метод считывания параметров из rx265/275
+    # @param  None
+    # @retval None
+    def params_retrieving_265_275(self):
+        ############ УКВ1, 265 ############################################################
+        # Скорость приточного вентилятора         
+        speed_sup_vent_1 = self.mainwind.Can_cor.rx_ukv_1_3[0]
+        self.mainwind.label_99.setNum(speed_sup_vent_1)
+        # Скорость вентилятора конденсатора
+        speed_cond_vent_1 = self.mainwind.Can_cor.rx_ukv_1_3[1]
+        self.mainwind.label_170.setNum(speed_cond_vent_1)
+        # Скорость вентилятора наружного воздуха
+        speed_amb_vent_1 = self.mainwind.Can_cor.rx_ukv_1_3[2]
+        self.mainwind.label_171.setNum(speed_amb_vent_1)
+        # Усреднённая температура приточного воздуха
+        aver_sup_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_3[4] | (self.mainwind.Can_cor.rx_ukv_1_3[5] << 8)) / 10
+        self.mainwind.label_172.setNum(aver_sup_temp_1)
+        # Датчик СО2
+        sens_CO2_1 = (self.mainwind.Can_cor.rx_ukv_1_3[6] | (self.mainwind.Can_cor.rx_ukv_1_3[7] << 8))
+        self.mainwind.label_173.setNum(sens_CO2_1)
+    
+     ############ УКВ2, 275 ############################################################
+        # Скорость приточного вентилятора         
+        speed_sup_vent_2 = self.mainwind.Can_cor.rx_ukv_2_3[0]
+        self.mainwind.label_274.setNum(speed_sup_vent_2)
+        # Скорость вентилятора конденсатора
+        speed_cond_vent_2 = self.mainwind.Can_cor.rx_ukv_2_3[1]
+        self.mainwind.label_265.setNum(speed_cond_vent_2)
+        # Скорость вентилятора наружного воздуха
+        speed_amb_vent_2 = self.mainwind.Can_cor.rx_ukv_2_3[2]
+        self.mainwind.label_282.setNum(speed_amb_vent_2)
+        # Усреднённая температура приточного воздуха
+        aver_sup_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_3[4] | (self.mainwind.Can_cor.rx_ukv_2_3[5] << 8)) / 10
+        self.mainwind.label_259.setNum(aver_sup_temp_2)
+        # Датчик СО2
+        sens_CO2_2 = (self.mainwind.Can_cor.rx_ukv_2_3[6] | (self.mainwind.Can_cor.rx_ukv_2_3[7] << 8))
+        self.mainwind.label_273.setNum(sens_CO2_2)
         
