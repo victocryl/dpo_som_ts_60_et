@@ -13,13 +13,57 @@ class Params:
 ################## МЕТОДЫ ################################################################################
 ##########################################################################################################
 
+    # @brief  Метод считывания режимов работы и параметров из посылки rx263/273
+    # @param  None
+    # @retval None
     def params_reading(self):
-        ############# УКВ 1 ####################################################################
-        # # бит Нет сети 400 В АС
-        # if (self.mainwind.Can_cor.rx_ukv_1_2[2] & sub.BIT5):
-        #     self.mainwind.checkBox_149.setCheckState(Qt.Checked)
-        # else:
-        #     self.mainwind.checkBox_149.setCheckState(Qt.Unchecked)
-        pass
+        
+        # считываем режимы работы
+        self.modes_reading()
 
+
+    # @brief  Метод считывания режимов из посылки rx263/273
+    # @param  None
+    # @retval None
+    def modes_reading(self):
+
+        ############# УКВ 1 ####################################################################
+        if (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT0):
+            self.mainwind.label_12.setText('ОТКЛЮЧЕНО')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT1):
+            self.mainwind.label_12.setText('АВТОМАТИЧ.')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT2):
+            self.mainwind.label_12.setText('ПОДОГРЕВ')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT3):
+            self.mainwind.label_12.setText('ОХЛАЖДЕНИЕ')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT4):
+            self.mainwind.label_12.setText('ВЕНТИЛЯЦИЯ')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT5):
+            self.mainwind.label_12.setText('УСИЛ.ВЕНТИЛ.')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT6):
+            self.mainwind.label_12.setText('ПОДГОТОВКА')
+        elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT7):
+            self.mainwind.label_12.setText('ТЕСТОВЫЙ')
+        else:
+            self.mainwind.label_12.setText('НЕОПРЕД.')
+        
+        ############# УКВ 2 ####################################################################
+        if (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT0):
+            self.mainwind.label_67.setText('ОТКЛЮЧЕНО')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT1):
+            self.mainwind.label_67.setText('АВТОМАТИЧ.')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT2):
+            self.mainwind.label_67.setText('ПОДОГРЕВ')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT3):
+            self.mainwind.label_67.setText('ОХЛАЖДЕНИЕ')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT4):
+            self.mainwind.label_67.setText('ВЕНТИЛЯЦИЯ')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT5):
+            self.mainwind.label_67.setText('УСИЛ.ВЕНТИЛ.')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT6):
+            self.mainwind.label_67.setText('ПОДГОТОВКА')
+        elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT7):
+            self.mainwind.label_67.setText('ТЕСТОВЫЙ')
+        else:
+            self.mainwind.label_67.setText('НЕОПРЕД.')
         
