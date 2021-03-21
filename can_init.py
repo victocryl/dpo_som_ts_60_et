@@ -45,17 +45,21 @@ class Can_initialization:
         self.chan = c_uint8(0)   # задаём номер открываемого канала
         self.flags = c_uint8(0)  # задаём формат кадра (по умолчанию, если 0, то 11 битный формат)
         self.chan_open_error.value = self.lib.CiOpen(self.chan.value, self.flags.value)     # открываем канал
-        print(f"self.chan_open_error: {self.chan_open_error.value}")
 
-        ############# конфигурирование канала ##################################################################
-        self.lib.CiRcQueResize(self.chan.value, 2)          # задаём размер приёмной очереди
-        self.lib.CiSetBaud(self.chan.value, 0x01, 0x1c)     # задаём скорость 250 кбит/с
-
-        ############# запуск канала CiStart() ##################################################################
-        # входящий параметр self.chan определён ранее
-        self.start_error.value = self.lib.CiStart(self.chan.value)     # запускаем канал
-        print(f"self.start_error: {self.start_error.value}")
-        # регулярная отправка посылки происходит в слоте таймера
+        # проверяем, подключен ли девайс
+        if self.chan_open_error.value == 0:
+            print(f"self.chan_open_error: {self.chan_open_error.value}")
+            ############# конфигурирование канала ##################################################################
+            self.lib.CiRcQueResize(self.chan.value, 2)          # задаём размер приёмной очереди
+            self.lib.CiSetBaud(self.chan.value, 0x01, 0x1c)     # задаём скорость 250 кбит/с
+            ############# запуск канала CiStart() ##################################################################
+            # входящий параметр self.chan определён ранее
+            self.start_error.value = self.lib.CiStart(self.chan.value)     # запускаем канал
+            print(f"self.start_error: {self.start_error.value}")
+            # регулярная отправка посылки происходит в слоте таймера
+            return 0
+        else:
+            return 1
 
     # @brief  Метод отключения устройства
     # @param  None
@@ -77,11 +81,21 @@ class Can_initialization:
     # @retval None
     def on_button(self):
         if sub.can_status == sub.OFF:
-            self.device_connect()
-            sub.can_status = sub.ON
-            print("device_connected")
+            if self.device_connect() == 0:  # если девайс нормально подключен
+                self.mainwind.pushButton.setText('отключиться x')
+                self.mainwind.label_4.setText('адаптер "Марафон" подключен')
+                self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем текст чёрным
+                sub.can_status = sub.ON
+                print("device_connected")
+            else:
+                self.mainwind.label_4.setText('АДАПТЕР НЕ ПОДКЛЮЧЕН ИЛИ НЕ ТОГО ТИПА')
+                self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(255, 10, 0); }");  # делаем текст красным
+                print("fault")
         else:
             self.device_disconnect()
+            self.mainwind.pushButton.setText('подключиться ->')
+            self.mainwind.label_4.setText('адаптер отключен')
+            self.mainwind.label_4.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем текст чёрным
             sub.can_status = sub.OFF
             print("device_disconnected")
 

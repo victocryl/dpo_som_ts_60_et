@@ -15762,7 +15762,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string/>
+          <string>адаптер &quot;Марафон&quot; не подключен, соедините адаптер с компьютером и нажмите кнопку &quot;подключиться&quot;</string>
          </property>
         </widget>
        </item>

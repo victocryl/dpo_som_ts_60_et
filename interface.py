@@ -5822,7 +5822,6 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("")
-        self.label_4.setText("")
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_3.addWidget(self.label_4)
         self.verticalLayout.addWidget(self.widget_3)
@@ -6141,3 +6140,4 @@ class Ui_MainWindow(object):
         self.label_315.setText(_translate("MainWindow", "Уставка температуры"))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.widget_117), _translate("MainWindow", "ПАРАМЕТРЫ"))
         self.label_3.setText(_translate("MainWindow", "СЛУЖЕБНАЯ ИНФОРМАЦИЯ:"))
+        self.label_4.setText(_translate("MainWindow", "адаптер \"Марафон\" не подключен, соедините адаптер с компьютером и нажмите кнопку \"подключиться\""))
