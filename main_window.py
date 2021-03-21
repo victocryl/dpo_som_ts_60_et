@@ -22,7 +22,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         # создаём экземпляр класса Can_initialization
         self.Can_init = can_init.Can_initialization(self)
         # создаём экземпляр класса Can_corresp
-        self.Can_cor = can_correspondence.Can_corresp()
+        self.Can_cor = can_correspondence.Can_corresp(self)
         # создаём экземпляр класса Commands и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
         self.C = tab_commands.Commands(self)
         # создаём экземпляр класса Status и передаём ему экземпляр класса MainWinowApp
@@ -86,6 +86,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.F.failuries_reading()
         # получение из rx-массивов параметров систем (УКВ1 и УКВ2) и отображение их во вкладке Параметры
         self.P.params_reading()
+        # получение из rx-массивов параметров систем (УКВ1 и УКВ2) и отображение их во вкладке Параметры
+        self.Can_cor.can_tx()
 
         ################ ТЕСТЫ #####################################################################################
         # print(self.Can_cor.tx_ukv_1)
