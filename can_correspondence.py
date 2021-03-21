@@ -54,7 +54,6 @@ class Can_corresp:
     ##########################################################################################################
     
     # @brief  Метод отправки посылок через адаптер
-    # @detail  Здесь задаются параметры интерфейса, которые будут отображаться сразу после загрузки приложения
     # @param  None
     # @retval None
     def can_tx(self):
@@ -78,7 +77,11 @@ class Can_corresp:
             # отправляем данные
             self.transmit_error.value = self.mainwind.Can_init.lib.CiTransmit(self.mainwind.Can_init.chan.value, self.tx_data)
 
-
+    # @brief  Метод получения посылок
+    # @param  None
+    # @retval None
+    def can_rx(self):
+        pass
 
 
 
