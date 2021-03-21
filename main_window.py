@@ -19,6 +19,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         self.i = 0  # счётчик срабатываний таймера
 
+        # создаём экземпляр класса Can_initialization
+        self.Can_init = can_init.Can_initialization(self)
         # создаём экземпляр класса Can_corresp
         self.Can_cor = can_correspondence.Can_corresp()
         # создаём экземпляр класса Commands и передаём ему экземпляр класса MainWinowApp (это window в модуле main)
