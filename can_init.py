@@ -13,7 +13,6 @@ class Can_initialization:
         self.board_info_error = c_int16(-5)     # для хранения ошибок ф-ии CiBoardInfo()
         self.chan_open_error  = c_int16(-5)     # для хранения ошибок ф-ии CiOpen()
         self.start_error      = c_int16(-5)     # для хранения ошибок ф-ии CiStart()
-        self.read_error       = c_int16(-5)     # для хранения ошибок ф-ии CiRead()
         # задаём номер открываемого канала и формат кадра для всех методов инициализации
         self.chan = c_uint8(0)   # задаём номер открываемого канала
         self.flags = c_uint8(0)  # задаём формат кадра (по умолчанию, если 0, то 11 битный формат)
@@ -48,7 +47,7 @@ class Can_initialization:
         # проверяем, подключен ли девайс
         if self.chan_open_error.value == 0:
             ############# конфигурирование канала ##################################################################
-            self.lib.CiRcQueResize(self.chan.value, 2)          # задаём размер приёмной очереди
+            self.lib.CiRcQueResize(self.chan.value, 2)         # задаём размер приёмной очереди
             self.lib.CiSetBaud(self.chan.value, 0x01, 0x1c)     # задаём скорость 250 кбит/с
             ############# запуск канала CiStart() ##################################################################
             # входящий параметр self.chan определён ранее

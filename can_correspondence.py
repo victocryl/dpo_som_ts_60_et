@@ -11,6 +11,7 @@ class Can_corresp:
     def __init__ (self, mainwind):
         self.mainwind = mainwind
         self.transmit_error   = c_int16(-5)     # для хранения ошибок ф-ии CiTransmit()
+        self.read_error       = c_int16(-5)     # для хранения ошибок ф-ии CiRead()
 
         # айдишники ДПО
         self.ID_TO_UKV_1 = 0x1C1
@@ -47,6 +48,12 @@ class Can_corresp:
         self.rx_ukv_2_3 = [0,0,0,0,0,0,0,0]    # (0x275)
         self.rx_ukv_2_4 = [0,0,0,0,0,0,0,0]    # (0x276)
         self.rx_ukv_2_5 = [0,0,0,0,0,0,0,0]    # (0x277)
+
+        # создаём массив структур сообщний rx (приёмный буфер из 10 элементов)
+        self.type_array = Canmsg_t * 2
+        self.rx_data = Canmsg_t()
+        self.rx_buffer = self.type_array(self.rx_data, self.rx_data)
+        # self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data
     
 
     ##########################################################################################################
@@ -81,8 +88,24 @@ class Can_corresp:
     # @param  None
     # @retval None
     def can_rx(self):
-        pass
+        # считываем всю очередь в приёмный буфер
+        self.read_error.value = self.mainwind.Can_init.lib.CiRead(self.mainwind.Can_init.chan.value, self.rx_buffer, 2)
 
+        self.rx_parsing(self.rx_buffer[0])
+        self.rx_parsing(self.rx_buffer[1])
+        print(self.rx_ukv_1_1)
+        print(self.rx_ukv_1_2)
+
+
+    def rx_parsing(self, src_buf):
+        
+        if src_buf.id == int(0x263):
+            for i in range(len(self.rx_ukv_1_1)):
+                self.rx_ukv_1_1[i] = src_buf.data[i]
+        
+        if src_buf.id == int(0x264):
+            for i in range(len(self.rx_ukv_1_2)):
+                self.rx_ukv_1_2[i] = src_buf.data[i]
 
 
 
