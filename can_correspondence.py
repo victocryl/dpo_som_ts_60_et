@@ -18,18 +18,18 @@ class Can_corresp:
         self.ID_TO_UKV_2 = 0x1C3
 
         # айдишники УКВ 1
-        self.ID_FROM_UKV_1_1 = 0x263
-        self.ID_FROM_UKV_1_2 = 0x264
-        self.ID_FROM_UKV_1_3 = 0x265
-        self.ID_FROM_UKV_1_4 = 0x266
-        self.ID_FROM_UKV_1_5 = 0x267
+        self.ID_UKV_1_1 = 0x263
+        self.ID_UKV_1_2 = 0x264
+        self.ID_UKV_1_3 = 0x265
+        self.ID_UKV_1_4 = 0x266
+        self.ID_UKV_1_5 = 0x267
 
         # айдишники УКВ 2
-        self.ID_FROM_UKV_2_1 = 0x273
-        self.ID_FROM_UKV_2_2 = 0x274
-        self.ID_FROM_UKV_2_3 = 0x275
-        self.ID_FROM_UKV_2_4 = 0x276
-        self.ID_FROM_UKV_2_5 = 0x277
+        self.ID_UKV_2_1 = 0x273
+        self.ID_UKV_2_2 = 0x274
+        self.ID_UKV_2_3 = 0x275
+        self.ID_UKV_2_4 = 0x276
+        self.ID_UKV_2_5 = 0x277
         
         # сообщения от ДПО
         self.tx_ukv_1 = [0,0,0,0,0,0,0,0]    # список сообщения для УКВ1 (0x1C1)
@@ -50,10 +50,9 @@ class Can_corresp:
         self.rx_ukv_2_5 = [0,0,0,0,0,0,0,0]    # (0x277)
 
         # создаём массив структур сообщний rx (приёмный буфер из 10 элементов)
-        self.type_array = Canmsg_t * 2
+        self.type_array = Canmsg_t * 10
         self.rx_data = Canmsg_t()
-        self.rx_buffer = self.type_array(self.rx_data, self.rx_data)
-        # self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data
+        self.rx_buffer = self.type_array(self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data)
     
 
     ##########################################################################################################
@@ -84,28 +83,91 @@ class Can_corresp:
             # отправляем данные
             self.transmit_error.value = self.mainwind.Can_init.lib.CiTransmit(self.mainwind.Can_init.chan.value, self.tx_data)
 
+
     # @brief  Метод получения посылок
     # @param  None
     # @retval None
     def can_rx(self):
-        # считываем всю очередь в приёмный буфер
-        self.read_error.value = self.mainwind.Can_init.lib.CiRead(self.mainwind.Can_init.chan.value, self.rx_buffer, 2)
+        
+        if sub.can_status == sub.ON:
+            # считываем всю очередь в приёмный буфер
+            self.read_error.value = self.mainwind.Can_init.lib.CiRead(self.mainwind.Can_init.chan.value, self.rx_buffer, 10)
 
-        self.rx_parsing(self.rx_buffer[0])
-        self.rx_parsing(self.rx_buffer[1])
-        print(self.rx_ukv_1_1)
-        print(self.rx_ukv_1_2)
+            self.rx_parsing(self.rx_buffer[0])
+            self.rx_parsing(self.rx_buffer[1])
+            self.rx_parsing(self.rx_buffer[2])
+            self.rx_parsing(self.rx_buffer[3])
+            self.rx_parsing(self.rx_buffer[4])
+            self.rx_parsing(self.rx_buffer[5])
+            self.rx_parsing(self.rx_buffer[6])
+            self.rx_parsing(self.rx_buffer[7])
+            self.rx_parsing(self.rx_buffer[8])
+            self.rx_parsing(self.rx_buffer[9])
+
+            self.print_all_arrays()
 
 
+    # @brief  Метод распределения данных согласно id-шникам из заданного элемента буфера
+    # @param  src_buf - элемент буфера, из которого читаем данные
+    # @retval None
     def rx_parsing(self, src_buf):
         
-        if src_buf.id == int(0x263):
+        if src_buf.id == int(self.ID_UKV_1_1):
             for i in range(len(self.rx_ukv_1_1)):
                 self.rx_ukv_1_1[i] = src_buf.data[i]
         
-        if src_buf.id == int(0x264):
+        if src_buf.id == int(self.ID_UKV_1_2):
             for i in range(len(self.rx_ukv_1_2)):
                 self.rx_ukv_1_2[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_1_3):
+            for i in range(len(self.rx_ukv_1_3)):
+                self.rx_ukv_1_3[i] = src_buf.data[i]
+
+        if src_buf.id == int(self.ID_UKV_1_4):
+            for i in range(len(self.rx_ukv_1_4)):
+                self.rx_ukv_1_4[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_1_5):
+            for i in range(len(self.rx_ukv_1_5)):
+                self.rx_ukv_1_5[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_2_1):
+            for i in range(len(self.rx_ukv_2_1)):
+                self.rx_ukv_2_1[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_2_2):
+            for i in range(len(self.rx_ukv_2_2)):
+                self.rx_ukv_2_2[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_2_3):
+            for i in range(len(self.rx_ukv_2_3)):
+                self.rx_ukv_2_3[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_2_4):
+            for i in range(len(self.rx_ukv_2_4)):
+                self.rx_ukv_2_4[i] = src_buf.data[i]
+        
+        if src_buf.id == int(self.ID_UKV_2_5):
+            for i in range(len(self.rx_ukv_2_5)):
+                self.rx_ukv_2_5[i] = src_buf.data[i]
+    
+
+    # @brief  Метод распечатывания всех массивов rx в консоль
+    # @param  None
+    # @retval None
+    def print_all_arrays(self):
+        print(f'rx_ukv_1_1: {self.rx_ukv_1_1}')
+        print(f'rx_ukv_1_2: {self.rx_ukv_1_2}')
+        print(f'rx_ukv_1_3: {self.rx_ukv_1_3}')
+        print(f'rx_ukv_1_4: {self.rx_ukv_1_4}')
+        print(f'rx_ukv_1_5: {self.rx_ukv_1_5}')
+        print(f'rx_ukv_2_1: {self.rx_ukv_2_1}')
+        print(f'rx_ukv_2_2: {self.rx_ukv_2_2}')
+        print(f'rx_ukv_2_3: {self.rx_ukv_2_3}')
+        print(f'rx_ukv_2_4: {self.rx_ukv_2_4}')
+        print(f'rx_ukv_2_5: {self.rx_ukv_2_5}')
+        print('end of list')
 
 
 

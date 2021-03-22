@@ -56,7 +56,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.lineEdit_8.setText("0")
 
         ######################### тесты ################################################
-        self.init_for_tests()
+        #self.init_for_tests()
 
         
 
@@ -71,13 +71,6 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
     # @retval None
     def on_timer(self):
 
-        # счётчик жизни ДПО
-        # self.i += 1
-        # self.Can_cor.tx_ukv_1[7] = self.i
-        # self.Can_cor.tx_ukv_2[7] = self.i
-        # self.label_75.setNum(self.i)
-        # self.label_79.setNum(self.i)
-
         # чтение команд и параметров вкладки Команды (УКВ1 и УКВ2) и запись их в массивы tx
         self.C.commands_reading()
         # отправка посылок по CAN
@@ -90,6 +83,11 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.F.failuries_reading()
         # получение из rx-массивов параметров систем (УКВ1 и УКВ2) и отображение их во вкладке Параметры
         self.P.params_reading()
+
+        # счётчик жизни ДПО
+        self.i += 1
+        self.label_75.setNum(self.i)
+        self.label_79.setNum(self.i)
         
 
         ################ ТЕСТЫ #####################################################################################
