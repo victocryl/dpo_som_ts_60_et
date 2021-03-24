@@ -18,8 +18,11 @@ class Can_initialization:
         self.flags = c_uint8(0)  # задаём формат кадра (по умолчанию, если 0, то 11 битный формат)
 
         ############# инициализация библиотеки Chai (это нужно делать один раз) ########################################
-        self.lib = cdll.chai                                      # создаём объект библиотеки chai
-        self.init_error.value = self.lib.CiInit()                 # вызываем ф-ию инициализации либы
+        # self.lib = cdll.chai                        # создаём объект библиотеки chai
+        # lib = cdll.LoadLibrary(r"C:\Windows\System32\msvcrt.dll")
+        # self.lib = cdll.LoadLibrary(r"D:\PY_projects\dpo_som_ts_60_et\lib\chai.dll")
+        self.lib = CDLL(r"chai.dll")    # D:\PY_projects\dpo_som_ts_60_et\lib\
+        self.init_error.value = self.lib.CiInit()   # вызываем ф-ию инициализации либы
 
         # коннект на кнопку Подключиться
         self.mainwind.pushButton.clicked.connect(self.on_button)
