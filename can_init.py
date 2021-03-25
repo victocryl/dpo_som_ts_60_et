@@ -19,8 +19,6 @@ class Can_initialization:
 
         ############# инициализация библиотеки Chai (это нужно делать один раз) ########################################
         # self.lib = cdll.chai                        # создаём объект библиотеки chai
-        # lib = cdll.LoadLibrary(r"C:\Windows\System32\msvcrt.dll")
-        # self.lib = cdll.LoadLibrary(r"D:\PY_projects\dpo_som_ts_60_et\lib\chai.dll")
         self.lib = CDLL(r"chai.dll")    # D:\PY_projects\dpo_som_ts_60_et\lib\
         self.init_error.value = self.lib.CiInit()   # вызываем ф-ию инициализации либы
 
