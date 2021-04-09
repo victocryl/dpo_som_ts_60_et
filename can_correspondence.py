@@ -83,6 +83,9 @@ class Can_corresp:
             # отправляем данные
             self.transmit_error.value = self.mainwind.Can_init.lib.CiTransmit(self.mainwind.Can_init.chan.value, self.tx_data)
 
+            print(f'tx_ukv_1 {self.tx_ukv_1}')
+
+
 
     # @brief  Метод получения посылок
     # @param  None
