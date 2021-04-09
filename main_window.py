@@ -18,6 +18,10 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setupUi(self)  # нужно для инициализации design.py
 
         self.i = 0  # счётчик срабатываний таймера
+        self.t = QTimer(self)   # создаём объект многоцелевого таймера и запускаем его
+        self.t.start(1000)
+        self.t2 = QTimer(self)   # создаём объект таймера опред. активной УКВ и запускаем его
+        self.t2.start(2000)
 
         # создаём экземпляр класса Can_initialization
         self.Can_init = can_init.Can_initialization(self)
@@ -34,11 +38,11 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         self.setWindowTitle("ДОПОЛНИТЕЛЬНОЕ ПО ДЛЯ ПРОЕКТА СОМ.ТС-60-ЕТ (ЕГИПЕТ)")
         self.common_init()      # первичное оформление интерфейса
-        self.t = QTimer(self)   # создаём объект таймера и запускаем его
-        self.t.start(1000)
+        
 
         ################ КОННЕКТЫ ################################################################################
-        self.t.timeout.connect(self.on_timer)   
+        self.t.timeout.connect(self.on_timer)
+    
 
 
     # @brief  Метод первичной инициализации интерфейса
@@ -88,7 +92,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.i += 1
         self.label_75.setNum(self.i)
         self.label_79.setNum(self.i)
-        
+
 
         ################ ТЕСТЫ #####################################################################################
         # print(self.Can_cor.tx_ukv_1)

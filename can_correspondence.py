@@ -1,9 +1,12 @@
 # Данный модуль содержит все айдишники, списки и методы для обеспечения 
 # корреспонгденции по CAN в обе стороны
 
-import can_init
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import QTimer
 
 from ctypes import *    # импортируем библиотеку ctypes
+import can_init
 import sub
 
 
@@ -12,6 +15,8 @@ class Can_corresp:
         self.mainwind = mainwind
         self.transmit_error   = c_int16(-5)     # для хранения ошибок ф-ии CiTransmit()
         self.read_error       = c_int16(-5)     # для хранения ошибок ф-ии CiRead()
+        self.ukv1_active_cnt  = 0  # счётчик посылок от УКВ1
+        self.ukv2_active_cnt  = 0  # счётчик посылок от УКВ2
 
         # айдишники ДПО
         self.ID_TO_UKV_1 = 0x1C1
@@ -53,7 +58,13 @@ class Can_corresp:
         self.type_array = Canmsg_t * 10
         self.rx_data = Canmsg_t()
         self.rx_buffer = self.type_array(self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data)
-    
+
+
+  
+    ################# КОННЕКТЫ ##############################################################################
+
+        self.mainwind.t2.timeout.connect(self.on_timer2) 
+
 
     ##########################################################################################################
     ################## МЕТОДЫ ################################################################################
@@ -116,6 +127,7 @@ class Can_corresp:
     def rx_parsing(self, src_buf):
         
         if src_buf.id == int(self.ID_UKV_1_1):
+            sub.ukv1_active_cnt += 1   # инкрементируем счётчик посылок
             for i in range(len(self.rx_ukv_1_1)):
                 self.rx_ukv_1_1[i] = src_buf.data[i]
         
@@ -136,6 +148,7 @@ class Can_corresp:
                 self.rx_ukv_1_5[i] = src_buf.data[i]
         
         if src_buf.id == int(self.ID_UKV_2_1):
+            sub.ukv2_active_cnt += 1   # инкрементируем счётчик посылок
             for i in range(len(self.rx_ukv_2_1)):
                 self.rx_ukv_2_1[i] = src_buf.data[i]
         
@@ -154,7 +167,61 @@ class Can_corresp:
         if src_buf.id == int(self.ID_UKV_2_5):
             for i in range(len(self.rx_ukv_2_5)):
                 self.rx_ukv_2_5[i] = src_buf.data[i]
-    
+
+
+
+##########################################################################################################
+################## СЛОТЫ #################################################################################
+##########################################################################################################
+
+    # @brief  Метод слота, реализующий действия по срабатыванию таймера 2 (опред. активной УКВ)
+    # @param  None
+    # @retval None
+    def on_timer2(self):
+
+        if sub.can_status == sub.ON:
+            # проверяем 1-ю УКВ
+            if self.ukv1_active_cnt > 0:
+                self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
+                ukv1_active_cnt = 0     # обнуляем счётчик посылок
+            else:
+                self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
+                # обнуляем параметры
+                for i in range(len(self.rx_ukv_1_1)):
+                    self.rx_ukv_1_1[i] = 0
+                for i in range(len(self.rx_ukv_1_2)):
+                    self.rx_ukv_1_2[i] = 0
+                for i in range(len(self.rx_ukv_1_3)):
+                    self.rx_ukv_1_3[i] = 0
+                for i in range(len(self.rx_ukv_1_4)):
+                    self.rx_ukv_1_4[i] = 0
+                for i in range(len(self.rx_ukv_1_5)):
+                    self.rx_ukv_1_5[i] = 0
+                
+                # проверяем 2-ю УКВ
+            if self.ukv2_active_cnt > 0:
+                self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
+                ukv2_active_cnt = 0     # обнуляем счётчик посылок
+            else:
+                self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
+                # обнуляем параметры
+                for i in range(len(self.rx_ukv_2_1)):
+                    self.rx_ukv_2_1[i] = 0
+                for i in range(len(self.rx_ukv_2_2)):
+                    self.rx_ukv_2_2[i] = 0
+                for i in range(len(self.rx_ukv_2_3)):
+                    self.rx_ukv_2_3[i] = 0
+                for i in range(len(self.rx_ukv_2_4)):
+                    self.rx_ukv_2_4[i] = 0
+                for i in range(len(self.rx_ukv_2_5)):
+                    self.rx_ukv_2_5[i] = 0
+
+
+
+
+##########################################################################################################
+################## ТЕСТЫ #################################################################################
+##########################################################################################################
 
     # @brief  Метод распечатывания всех массивов rx в консоль
     # @param  None
@@ -173,8 +240,6 @@ class Can_corresp:
         print('end of list')
 
 
-
-
 ##########################################################################################################
 ################## ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ ################################################################
 ##########################################################################################################
@@ -188,3 +253,5 @@ class Canmsg_t(Structure):
                 ('len', c_uint8),
                 ('flags', c_uint16),
                 ('ts', c_uint32)]
+
+
