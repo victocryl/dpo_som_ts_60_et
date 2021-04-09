@@ -21,7 +21,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.t = QTimer(self)   # создаём объект многоцелевого таймера и запускаем его
         self.t.start(1000)
         self.t2 = QTimer(self)   # создаём объект таймера опред. активной УКВ и запускаем его
-        self.t2.start(2000)
+        self.t2.start(1000)
 
         # создаём экземпляр класса Can_initialization
         self.Can_init = can_init.Can_initialization(self)

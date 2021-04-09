@@ -94,8 +94,6 @@ class Can_corresp:
             # отправляем данные
             self.transmit_error.value = self.mainwind.Can_init.lib.CiTransmit(self.mainwind.Can_init.chan.value, self.tx_data)
 
-            print(f'tx_ukv_1 {self.tx_ukv_1}')
-
 
 
     # @brief  Метод получения посылок
@@ -118,7 +116,7 @@ class Can_corresp:
             self.rx_parsing(self.rx_buffer[8])
             self.rx_parsing(self.rx_buffer[9])
 
-            self.print_all_arrays()
+            # self.print_all_arrays()
 
 
     # @brief  Метод распределения данных согласно id-шникам из заданного элемента буфера
@@ -127,7 +125,7 @@ class Can_corresp:
     def rx_parsing(self, src_buf):
         
         if src_buf.id == int(self.ID_UKV_1_1):
-            sub.ukv1_active_cnt += 1   # инкрементируем счётчик посылок
+            self.ukv1_active_cnt += 1   # инкрементируем счётчик посылок
             for i in range(len(self.rx_ukv_1_1)):
                 self.rx_ukv_1_1[i] = src_buf.data[i]
         
@@ -148,7 +146,7 @@ class Can_corresp:
                 self.rx_ukv_1_5[i] = src_buf.data[i]
         
         if src_buf.id == int(self.ID_UKV_2_1):
-            sub.ukv2_active_cnt += 1   # инкрементируем счётчик посылок
+            self.ukv2_active_cnt += 1   # инкрементируем счётчик посылок
             for i in range(len(self.rx_ukv_2_1)):
                 self.rx_ukv_2_1[i] = src_buf.data[i]
         
@@ -179,12 +177,17 @@ class Can_corresp:
     # @retval None
     def on_timer2(self):
 
+        print(f'ukv1_active_cnt= {self.ukv1_active_cnt}')
+        print(f'ukv2_active_cnt= {self.ukv2_active_cnt}')
+        
         if sub.can_status == sub.ON:
             # проверяем 1-ю УКВ
             if self.ukv1_active_cnt > 0:
+                print(f'from if1')
                 self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
-                ukv1_active_cnt = 0     # обнуляем счётчик посылок
+                self.ukv1_active_cnt = 0     # обнуляем счётчик посылок
             else:
+                print(f'from else1')
                 self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
                 # обнуляем параметры
                 for i in range(len(self.rx_ukv_1_1)):
@@ -200,9 +203,11 @@ class Can_corresp:
                 
                 # проверяем 2-ю УКВ
             if self.ukv2_active_cnt > 0:
+                print(f'from if2')
                 self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
-                ukv2_active_cnt = 0     # обнуляем счётчик посылок
+                self.ukv2_active_cnt = 0     # обнуляем счётчик посылок
             else:
+                print(f'from else2')
                 self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
                 # обнуляем параметры
                 for i in range(len(self.rx_ukv_2_1)):
