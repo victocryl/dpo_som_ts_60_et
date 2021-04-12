@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 from PyQt5.QtCore import QTimer
 
+from ctypes import *    # импортируем библиотеку ctypes
 import interface            # конвертированный файл дизайна
 import can_init             # модуль инициализации и управления каналом can
 import can_correspondence   # модуль всей корреспонденции по can
@@ -17,11 +18,15 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
         self.setupUi(self)  # нужно для инициализации design.py
 
-        self.i = 0  # счётчик срабатываний таймера
-        self.t = QTimer(self)   # создаём объект многоцелевого таймера и запускаем его
+        self.i = 0                      # счётчик срабатываний таймера
+        self.t = QTimer(self)           # создаём объект многоцелевого таймера и запускаем его
         self.t.start(1000)
-        self.t2 = QTimer(self)   # создаём объект таймера опред. активной УКВ и запускаем его
+        self.t2 = QTimer(self)          # создаём объект таймера опред. активной УКВ и запускаем его
         self.t2.start(1000)
+
+        # self.num = c_uint16(3)
+        # self.ptr_num = pointer(self.num)
+        # self.clear_error = c_int16(-5)  # для хранения ошибок очистки приёмного буфера
 
         # создаём экземпляр класса Can_initialization
         self.Can_init = can_init.Can_initialization(self)
@@ -87,6 +92,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.F.failuries_reading()
         # получение из rx-массивов параметров систем (УКВ1 и УКВ2) и отображение их во вкладке Параметры
         self.P.params_reading()
+        # определение активной УКВ
+        self.Can_cor.ukv_active_determine()
 
         # счётчик жизни ДПО
         self.i += 1

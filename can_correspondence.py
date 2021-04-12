@@ -15,8 +15,12 @@ class Can_corresp:
         self.mainwind = mainwind
         self.transmit_error   = c_int16(-5)     # для хранения ошибок ф-ии CiTransmit()
         self.read_error       = c_int16(-5)     # для хранения ошибок ф-ии CiRead()
-        self.ukv1_active_cnt  = 0  # счётчик посылок от УКВ1
-        self.ukv2_active_cnt  = 0  # счётчик посылок от УКВ2
+        self.old_cnt1 = 0
+        self.new_cnt1 = 0
+        self.old_cnt2 = 0
+        self.new_cnt2 = 0
+        self.ukv1_status = sub.ON
+        self.ukv2_status = sub.ON
 
         # айдишники ДПО
         self.ID_TO_UKV_1 = 0x1C1
@@ -59,11 +63,6 @@ class Can_corresp:
         self.rx_data = Canmsg_t()
         self.rx_buffer = self.type_array(self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data, self.rx_data)
 
-
-  
-    ################# КОННЕКТЫ ##############################################################################
-
-        self.mainwind.t2.timeout.connect(self.on_timer2) 
 
 
     ##########################################################################################################
@@ -125,101 +124,122 @@ class Can_corresp:
     def rx_parsing(self, src_buf):
         
         if src_buf.id == int(self.ID_UKV_1_1):
-            self.ukv1_active_cnt += 1   # инкрементируем счётчик посылок
-            for i in range(len(self.rx_ukv_1_1)):
-                self.rx_ukv_1_1[i] = src_buf.data[i]
-        
+            if self.ukv1_status == sub.ON:
+                for i in range(len(self.rx_ukv_1_1)):
+                    self.rx_ukv_1_1[i] = src_buf.data[i]
+            else:
+                self.rx_ukv_1_1[0] = 0
+                self.rx_ukv_1_1[1] = 0
+                self.rx_ukv_1_1[2] = 0
+                self.rx_ukv_1_1[3] = 0
+                self.rx_ukv_1_1[4] = 0
+                self.rx_ukv_1_1[5] = 0
+                self.rx_ukv_1_1[6] = src_buf.data[6]
+                self.rx_ukv_1_1[7] = 0
+
         if src_buf.id == int(self.ID_UKV_1_2):
-            for i in range(len(self.rx_ukv_1_2)):
-                self.rx_ukv_1_2[i] = src_buf.data[i]
+            if self.ukv1_status == sub.ON:
+                for i in range(len(self.rx_ukv_1_2)):
+                    self.rx_ukv_1_2[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_1_2)):
+                    self.rx_ukv_1_2[i] = 0
         
         if src_buf.id == int(self.ID_UKV_1_3):
-            for i in range(len(self.rx_ukv_1_3)):
-                self.rx_ukv_1_3[i] = src_buf.data[i]
+            if self.ukv1_status == sub.ON:
+                for i in range(len(self.rx_ukv_1_3)):
+                    self.rx_ukv_1_3[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_1_3)):
+                    self.rx_ukv_1_3[i] = 0
 
         if src_buf.id == int(self.ID_UKV_1_4):
-            for i in range(len(self.rx_ukv_1_4)):
-                self.rx_ukv_1_4[i] = src_buf.data[i]
+            if self.ukv1_status == sub.ON:
+                for i in range(len(self.rx_ukv_1_4)):
+                    self.rx_ukv_1_4[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_1_4)):
+                    self.rx_ukv_1_4[i] = 0
         
         if src_buf.id == int(self.ID_UKV_1_5):
-            for i in range(len(self.rx_ukv_1_5)):
-                self.rx_ukv_1_5[i] = src_buf.data[i]
-        
+            if self.ukv1_status == sub.ON:
+                for i in range(len(self.rx_ukv_1_5)):
+                    self.rx_ukv_1_5[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_1_5)):
+                    self.rx_ukv_1_5[i] = 0
+
+
         if src_buf.id == int(self.ID_UKV_2_1):
-            self.ukv2_active_cnt += 1   # инкрементируем счётчик посылок
-            for i in range(len(self.rx_ukv_2_1)):
-                self.rx_ukv_2_1[i] = src_buf.data[i]
+            if self.ukv2_status == sub.ON:
+                for i in range(len(self.rx_ukv_2_1)):
+                    self.rx_ukv_2_1[i] = src_buf.data[i]
+            else:
+                self.rx_ukv_2_1[0] = 0
+                self.rx_ukv_2_1[1] = 0
+                self.rx_ukv_2_1[2] = 0
+                self.rx_ukv_2_1[3] = 0
+                self.rx_ukv_2_1[4] = 0
+                self.rx_ukv_2_1[5] = 0
+                self.rx_ukv_2_1[6] = src_buf.data[6]
+                self.rx_ukv_2_1[7] = 0
         
         if src_buf.id == int(self.ID_UKV_2_2):
-            for i in range(len(self.rx_ukv_2_2)):
-                self.rx_ukv_2_2[i] = src_buf.data[i]
+            if self.ukv2_status == sub.ON:
+                for i in range(len(self.rx_ukv_2_2)):
+                    self.rx_ukv_2_2[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_2_2)):
+                    self.rx_ukv_2_2[i] = 0
         
         if src_buf.id == int(self.ID_UKV_2_3):
-            for i in range(len(self.rx_ukv_2_3)):
-                self.rx_ukv_2_3[i] = src_buf.data[i]
+            if self.ukv2_status == sub.ON:
+                for i in range(len(self.rx_ukv_2_3)):
+                    self.rx_ukv_2_3[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_2_3)):
+                    self.rx_ukv_2_3[i] = 0
         
         if src_buf.id == int(self.ID_UKV_2_4):
-            for i in range(len(self.rx_ukv_2_4)):
-                self.rx_ukv_2_4[i] = src_buf.data[i]
+            if self.ukv2_status == sub.ON:
+                for i in range(len(self.rx_ukv_2_4)):
+                    self.rx_ukv_2_4[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_2_4)):
+                    self.rx_ukv_2_4[i] = 0
         
         if src_buf.id == int(self.ID_UKV_2_5):
-            for i in range(len(self.rx_ukv_2_5)):
-                self.rx_ukv_2_5[i] = src_buf.data[i]
+            if self.ukv2_status == sub.ON:
+                for i in range(len(self.rx_ukv_2_5)):
+                    self.rx_ukv_2_5[i] = src_buf.data[i]
+            else:
+                for i in range(len(self.rx_ukv_2_5)):
+                    self.rx_ukv_2_5[i] = 0
 
-
-
-##########################################################################################################
-################## СЛОТЫ #################################################################################
-##########################################################################################################
 
     # @brief  Метод слота, реализующий действия по срабатыванию таймера 2 (опред. активной УКВ)
     # @param  None
     # @retval None
-    def on_timer2(self):
+    def ukv_active_determine(self):
 
-        print(f'ukv1_active_cnt= {self.ukv1_active_cnt}')
-        print(f'ukv2_active_cnt= {self.ukv2_active_cnt}')
-        
         if sub.can_status == sub.ON:
-            # проверяем 1-ю УКВ
-            if self.ukv1_active_cnt > 0:
-                print(f'from if1')
-                self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
-                self.ukv1_active_cnt = 0     # обнуляем счётчик посылок
-            else:
-                print(f'from else1')
+            self.new_cnt1 = self.rx_ukv_1_1[6]
+            if self.new_cnt1 == self.old_cnt1:
                 self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
-                # обнуляем параметры
-                for i in range(len(self.rx_ukv_1_1)):
-                    self.rx_ukv_1_1[i] = 0
-                for i in range(len(self.rx_ukv_1_2)):
-                    self.rx_ukv_1_2[i] = 0
-                for i in range(len(self.rx_ukv_1_3)):
-                    self.rx_ukv_1_3[i] = 0
-                for i in range(len(self.rx_ukv_1_4)):
-                    self.rx_ukv_1_4[i] = 0
-                for i in range(len(self.rx_ukv_1_5)):
-                    self.rx_ukv_1_5[i] = 0
-                
-                # проверяем 2-ю УКВ
-            if self.ukv2_active_cnt > 0:
-                print(f'from if2')
-                self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
-                self.ukv2_active_cnt = 0     # обнуляем счётчик посылок
+                self.ukv1_status = sub.OFF  # изменяем статус УКВ
             else:
-                print(f'from else2')
+                self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
+                self.ukv1_status = sub.ON
+                self.old_cnt1 = self.new_cnt1
+
+            self.new_cnt2 = self.rx_ukv_2_1[6]
+            if self.new_cnt2 == self.old_cnt2:
                 self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
-                # обнуляем параметры
-                for i in range(len(self.rx_ukv_2_1)):
-                    self.rx_ukv_2_1[i] = 0
-                for i in range(len(self.rx_ukv_2_2)):
-                    self.rx_ukv_2_2[i] = 0
-                for i in range(len(self.rx_ukv_2_3)):
-                    self.rx_ukv_2_3[i] = 0
-                for i in range(len(self.rx_ukv_2_4)):
-                    self.rx_ukv_2_4[i] = 0
-                for i in range(len(self.rx_ukv_2_5)):
-                    self.rx_ukv_2_5[i] = 0
+                self.ukv2_status = sub.OFF  # изменяем статус УКВ
+            else:
+                self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 170, 0); }");  # делаем буквы зелёными
+                self.ukv2_status = sub.ON
+                self.old_cnt2 = self.new_cnt2
 
 
 
@@ -233,16 +253,16 @@ class Can_corresp:
     # @retval None
     def print_all_arrays(self):
         print(f'rx_ukv_1_1: {self.rx_ukv_1_1}')
-        print(f'rx_ukv_1_2: {self.rx_ukv_1_2}')
-        print(f'rx_ukv_1_3: {self.rx_ukv_1_3}')
-        print(f'rx_ukv_1_4: {self.rx_ukv_1_4}')
-        print(f'rx_ukv_1_5: {self.rx_ukv_1_5}')
+        # print(f'rx_ukv_1_2: {self.rx_ukv_1_2}')
+        # print(f'rx_ukv_1_3: {self.rx_ukv_1_3}')
+        # print(f'rx_ukv_1_4: {self.rx_ukv_1_4}')
+        # print(f'rx_ukv_1_5: {self.rx_ukv_1_5}')
         print(f'rx_ukv_2_1: {self.rx_ukv_2_1}')
-        print(f'rx_ukv_2_2: {self.rx_ukv_2_2}')
-        print(f'rx_ukv_2_3: {self.rx_ukv_2_3}')
-        print(f'rx_ukv_2_4: {self.rx_ukv_2_4}')
-        print(f'rx_ukv_2_5: {self.rx_ukv_2_5}')
-        print('end of list')
+        # print(f'rx_ukv_2_2: {self.rx_ukv_2_2}')
+        # print(f'rx_ukv_2_3: {self.rx_ukv_2_3}')
+        # print(f'rx_ukv_2_4: {self.rx_ukv_2_4}')
+        # print(f'rx_ukv_2_5: {self.rx_ukv_2_5}')
+        # print('end of list')
 
 
 ##########################################################################################################

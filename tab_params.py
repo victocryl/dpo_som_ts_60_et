@@ -116,6 +116,7 @@ class Params:
     # @retval None
     def params_retrieving_265_275(self):
         ############ УКВ1, 265 ############################################################
+                
         # Скорость приточного вентилятора         
         speed_sup_vent_1 = self.mainwind.Can_cor.rx_ukv_1_3[0]
         self.mainwind.label_99.setNum(speed_sup_vent_1)
