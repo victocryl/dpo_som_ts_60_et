@@ -78,10 +78,17 @@ class Params:
         
         ############# УКВ 1 ####################################################################
         # температура наружного воздуха
-        amb_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_1[1] | (self.mainwind.Can_cor.rx_ukv_1_1[2] << 8)) / 10
+        tmp1 = hex(self.mainwind.Can_cor.rx_ukv_1_1[1])
+        tmp2 = hex(self.mainwind.Can_cor.rx_ukv_1_1[2])
+        print(f'rx_ukv_1_1[1] = {tmp1}')
+        print(f'rx_ukv_1_1[2] = {tmp2}')
+        # tmp3 = (tmp1 | (tmp2 << 8))
+        # print(f'tmp3 = {tmp3}')
+
+        amb_temp_1 = ((self.mainwind.Can_cor.rx_ukv_1_1[1] << 8) | (self.mainwind.Can_cor.rx_ukv_1_1[2])) / 10
         self.mainwind.label_303.setNum(amb_temp_1)
         # температура салона
-        sal_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_1[3] | (self.mainwind.Can_cor.rx_ukv_1_1[4] << 8)) / 10
+        sal_temp_1 = ((self.mainwind.Can_cor.rx_ukv_1_1[3] <<8) | (self.mainwind.Can_cor.rx_ukv_1_1[4])) / 10
         self.mainwind.label_302.setNum(sal_temp_1)
         # уставка температуры
         ust_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_1[5] * 0.5 + 12)
@@ -95,10 +102,10 @@ class Params:
 
         ############# УКВ 2 ####################################################################
         # температура наружного воздуха
-        amb_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_1[1] | (self.mainwind.Can_cor.rx_ukv_2_1[2] << 8)) / 10
+        amb_temp_2 = ((self.mainwind.Can_cor.rx_ukv_2_1[1] << 8) | (self.mainwind.Can_cor.rx_ukv_2_1[2])) / 10
         self.mainwind.label_312.setNum(amb_temp_2)
         # температура салона
-        sal_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_1[3] | (self.mainwind.Can_cor.rx_ukv_2_1[4] << 8)) / 10
+        sal_temp_2 = ((self.mainwind.Can_cor.rx_ukv_2_1[3] << 8) | (self.mainwind.Can_cor.rx_ukv_2_1[4])) / 10
         self.mainwind.label_311.setNum(sal_temp_2)
         # уставка температуры
         ust_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_1[5] * 0.5 + 12)
@@ -127,10 +134,10 @@ class Params:
         speed_amb_vent_1 = self.mainwind.Can_cor.rx_ukv_1_3[2]
         self.mainwind.label_171.setNum(speed_amb_vent_1)
         # Усреднённая температура приточного воздуха
-        aver_sup_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_3[4] | (self.mainwind.Can_cor.rx_ukv_1_3[5] << 8)) / 10
+        aver_sup_temp_1 = ((self.mainwind.Can_cor.rx_ukv_1_3[4] << 8) | (self.mainwind.Can_cor.rx_ukv_1_3[5])) / 10
         self.mainwind.label_172.setNum(aver_sup_temp_1)
         # Датчик СО2
-        sens_CO2_1 = (self.mainwind.Can_cor.rx_ukv_1_3[6] | (self.mainwind.Can_cor.rx_ukv_1_3[7] << 8))
+        sens_CO2_1 = ((self.mainwind.Can_cor.rx_ukv_1_3[6] << 8) | (self.mainwind.Can_cor.rx_ukv_1_3[7]))
         self.mainwind.label_173.setNum(sens_CO2_1)
     
      ############ УКВ2, 275 ############################################################
@@ -144,10 +151,10 @@ class Params:
         speed_amb_vent_2 = self.mainwind.Can_cor.rx_ukv_2_3[2]
         self.mainwind.label_282.setNum(speed_amb_vent_2)
         # Усреднённая температура приточного воздуха
-        aver_sup_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_3[4] | (self.mainwind.Can_cor.rx_ukv_2_3[5] << 8)) / 10
+        aver_sup_temp_2 = ((self.mainwind.Can_cor.rx_ukv_2_3[4] << 8) | (self.mainwind.Can_cor.rx_ukv_2_3[5])) / 10
         self.mainwind.label_259.setNum(aver_sup_temp_2)
         # Датчик СО2
-        sens_CO2_2 = (self.mainwind.Can_cor.rx_ukv_2_3[6] | (self.mainwind.Can_cor.rx_ukv_2_3[7] << 8))
+        sens_CO2_2 = ((self.mainwind.Can_cor.rx_ukv_2_3[6] << 8) | (self.mainwind.Can_cor.rx_ukv_2_3[7]))
         self.mainwind.label_273.setNum(sens_CO2_2)
 
 
@@ -157,7 +164,7 @@ class Params:
     def params_retrieving_266_276(self):
         ############ УКВ1, 266 ############################################################
         # Температура приточного воздуха        
-        sup_temp_1 = (self.mainwind.Can_cor.rx_ukv_1_4[0] | (self.mainwind.Can_cor.rx_ukv_1_4[1] << 8)) / 10
+        sup_temp_1 = ((self.mainwind.Can_cor.rx_ukv_1_4[0] << 8) | (self.mainwind.Can_cor.rx_ukv_1_4[1])) / 10
         self.mainwind.label_174.setNum(sup_temp_1)
         # Низкое давление контура 1
         c_1_l_press_1 = self.mainwind.Can_cor.rx_ukv_1_4[4] * 0.05
@@ -174,7 +181,7 @@ class Params:
 
         ############ УКВ2, 276 ############################################################
         # Температура приточного воздуха        
-        sup_temp_2 = (self.mainwind.Can_cor.rx_ukv_2_4[0] | (self.mainwind.Can_cor.rx_ukv_2_4[1] << 8)) / 10
+        sup_temp_2 = ((self.mainwind.Can_cor.rx_ukv_2_4[0] << 8) | (self.mainwind.Can_cor.rx_ukv_2_4[1])) / 10
         self.mainwind.label_289.setNum(sup_temp_2)
         # Низкое давление контура 1
         c_1_l_press_2 = self.mainwind.Can_cor.rx_ukv_2_4[4] * 0.05
