@@ -74,7 +74,7 @@ class Can_corresp:
     # @retval None
     def can_tx(self):
         if sub.can_status == sub.ON:    # всё делаем только если адаптер нормально подключен
-            self.tx_data = Canmsg_t()               # создаём объект сообщения tx
+            self.tx_data = Canmsg_t()           # создаём объект сообщения tx
             self.tx_data.len = 8                # указываем длину сообщения
 
             # инициализируем его данными посылки self.tx_ukv_1 (это сообщение для УКВ1 с id 0x1C1)
@@ -115,6 +115,8 @@ class Can_corresp:
             self.rx_parsing(self.rx_buffer[8])
             self.rx_parsing(self.rx_buffer[9])
 
+            
+
             # self.print_all_arrays()
 
 
@@ -134,8 +136,8 @@ class Can_corresp:
                 self.rx_ukv_1_1[3] = 0
                 self.rx_ukv_1_1[4] = 0
                 self.rx_ukv_1_1[5] = 0
-                self.rx_ukv_1_1[6] = src_buf.data[6]
-                self.rx_ukv_1_1[7] = 0
+                self.rx_ukv_1_1[6] = 0
+                self.rx_ukv_1_1[7] = src_buf.data[7]
 
         if src_buf.id == int(self.ID_UKV_1_2):
             if self.ukv1_status == sub.ON:
@@ -181,8 +183,8 @@ class Can_corresp:
                 self.rx_ukv_2_1[3] = 0
                 self.rx_ukv_2_1[4] = 0
                 self.rx_ukv_2_1[5] = 0
-                self.rx_ukv_2_1[6] = src_buf.data[6]
-                self.rx_ukv_2_1[7] = 0
+                self.rx_ukv_2_1[6] = 0
+                self.rx_ukv_2_1[7] = src_buf.data[7]
         
         if src_buf.id == int(self.ID_UKV_2_2):
             if self.ukv2_status == sub.ON:
@@ -223,7 +225,11 @@ class Can_corresp:
     def ukv_active_determine(self):
 
         if sub.can_status == sub.ON:
-            self.new_cnt1 = self.rx_ukv_1_1[6]
+            
+            print(f'new_cnt1 = {self.old_cnt1}')
+            print(f'new_cnt2 = {self.old_cnt2}')
+            
+            self.new_cnt1 = self.rx_ukv_1_1[7]
             if self.new_cnt1 == self.old_cnt1:
                 self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
                 self.ukv1_status = sub.OFF  # изменяем статус УКВ
@@ -232,7 +238,7 @@ class Can_corresp:
                 self.ukv1_status = sub.ON
                 self.old_cnt1 = self.new_cnt1
 
-            self.new_cnt2 = self.rx_ukv_2_1[6]
+            self.new_cnt2 = self.rx_ukv_2_1[7]
             if self.new_cnt2 == self.old_cnt2:
                 self.mainwind.label_63.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными
                 self.ukv2_status = sub.OFF  # изменяем статус УКВ

@@ -19,6 +19,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setupUi(self)  # нужно для инициализации design.py
 
         self.i = 0                      # счётчик срабатываний таймера
+
         self.t = QTimer(self)           # создаём объект многоцелевого таймера и запускаем его
         self.t.start(1000)
         self.t2 = QTimer(self)          # создаём объект таймера опред. активной УКВ и запускаем его
@@ -97,8 +98,8 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         # счётчик жизни ДПО
         self.i += 1
-        self.label_75.setNum(self.i)
-        self.label_79.setNum(self.i)
+        self.Can_cor.tx_ukv_1[7] = self.i
+        self.Can_cor.tx_ukv_2[7] = self.i
 
 
         ################ ТЕСТЫ #####################################################################################

@@ -77,13 +77,6 @@ class Params:
     def common_info_retrieving(self):
         
         ############# УКВ 1 ####################################################################
-        # температура наружного воздуха
-        tmp1 = hex(self.mainwind.Can_cor.rx_ukv_1_1[1])
-        tmp2 = hex(self.mainwind.Can_cor.rx_ukv_1_1[2])
-        print(f'rx_ukv_1_1[1] = {tmp1}')
-        print(f'rx_ukv_1_1[2] = {tmp2}')
-        # tmp3 = (tmp1 | (tmp2 << 8))
-        # print(f'tmp3 = {tmp3}')
 
         amb_temp_1 = ((self.mainwind.Can_cor.rx_ukv_1_1[1] << 8) | (self.mainwind.Can_cor.rx_ukv_1_1[2])) / 10
         self.mainwind.label_303.setNum(amb_temp_1)
