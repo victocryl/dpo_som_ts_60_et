@@ -48,6 +48,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
 
         ################ КОННЕКТЫ ################################################################################
         self.t.timeout.connect(self.on_timer)
+        self.t2.timeout.connect(self.on_timer2)
     
 
 
@@ -93,13 +94,17 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.F.failuries_reading()
         # получение из rx-массивов параметров систем (УКВ1 и УКВ2) и отображение их во вкладке Параметры
         self.P.params_reading()
-        # определение активной УКВ
-        self.Can_cor.ukv_active_determine()
+        
 
         # счётчик жизни ДПО
         self.i += 1
         self.Can_cor.tx_ukv_1[7] = self.i
         self.Can_cor.tx_ukv_2[7] = self.i
+
+    def on_timer2(self):
+        # определение активной УКВ
+        self.Can_cor.ukv_active_determine()
+
 
 
         ################ ТЕСТЫ #####################################################################################

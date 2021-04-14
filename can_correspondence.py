@@ -226,9 +226,6 @@ class Can_corresp:
 
         if sub.can_status == sub.ON:
             
-            print(f'new_cnt1 = {self.old_cnt1}')
-            print(f'new_cnt2 = {self.old_cnt2}')
-            
             self.new_cnt1 = self.rx_ukv_1_1[7]
             if self.new_cnt1 == self.old_cnt1:
                 self.mainwind.label_5.setStyleSheet("QLabel{color: rgb(0, 0, 0); }");  # делаем буквы чёрными

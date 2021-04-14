@@ -34,8 +34,10 @@ class Statuses:
         # бит Воздушная заслонка открыта
         if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT2):
             self.mainwind.checkBox_148.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_88.setCheckState(Qt.Checked)
         else:
             self.mainwind.checkBox_148.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_88.setCheckState(Qt.Unchecked)
 
         # бит Вентилятор наружного воздуха включен
         if (self.mainwind.Can_cor.rx_ukv_1_2[0] & sub.BIT3):
@@ -141,8 +143,10 @@ class Statuses:
         # бит Воздушная заслонка открыта
         if (self.mainwind.Can_cor.rx_ukv_2_2[0] & sub.BIT2):
             self.mainwind.checkBox_195.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_102.setCheckState(Qt.Checked)
         else:
             self.mainwind.checkBox_195.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_102.setCheckState(Qt.Unchecked)
 
         # бит Вентилятор наружного воздуха включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[0] & sub.BIT3):
