@@ -33,42 +33,60 @@ class Params:
         ############# УКВ 1 ####################################################################
         if (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT0):
             self.mainwind.label_12.setText('ОТКЛЮЧЕНО')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT1):
             self.mainwind.label_12.setText('АВТОМАТИЧ.')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT2):
             self.mainwind.label_12.setText('ПОДОГРЕВ')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT3):
             self.mainwind.label_12.setText('ОХЛАЖДЕНИЕ')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT4):
             self.mainwind.label_12.setText('ВЕНТИЛЯЦИЯ')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT5):
             self.mainwind.label_12.setText('УСИЛ.ВЕНТИЛ.')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT6):
             self.mainwind.label_12.setText('ПОДГОТОВКА')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_1_1[0] & sub.BIT7):
             self.mainwind.label_12.setText('ТЕСТОВЫЙ')
+            self.mainwind.checkBox_6.setCheckState(Qt.Checked)
         else:
             self.mainwind.label_12.setText('НЕОПРЕД.')
+            self.mainwind.checkBox_6.setCheckState(Qt.Unchecked)
         
         ############# УКВ 2 ####################################################################
         if (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT0):
             self.mainwind.label_67.setText('ОТКЛЮЧЕНО')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT1):
             self.mainwind.label_67.setText('АВТОМАТИЧ.')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT2):
             self.mainwind.label_67.setText('ПОДОГРЕВ')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT3):
             self.mainwind.label_67.setText('ОХЛАЖДЕНИЕ')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT4):
             self.mainwind.label_67.setText('ВЕНТИЛЯЦИЯ')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT5):
             self.mainwind.label_67.setText('УСИЛ.ВЕНТИЛ.')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT6):
             self.mainwind.label_67.setText('ПОДГОТОВКА')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
         elif (self.mainwind.Can_cor.rx_ukv_2_1[0] & sub.BIT7):
             self.mainwind.label_67.setText('ТЕСТОВЫЙ')
+            self.mainwind.checkBox_31.setCheckState(Qt.Checked)
         else:
             self.mainwind.label_67.setText('НЕОПРЕД.')
+            self.mainwind.checkBox_31.setCheckState(Qt.Unchecked)
 
 
     # @brief  Метод считывания общей информации из посылки rx263/273
