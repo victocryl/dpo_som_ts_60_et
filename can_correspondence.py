@@ -14,7 +14,8 @@ class Can_corresp:
     def __init__ (self, mainwind):
         self.mainwind = mainwind
         self.transmit_error   = c_int16(-5)     # для хранения ошибок ф-ии CiTransmit()
-        self.read_error       = c_int16(-5)     # для хранения ошибок ф-ии CiRead()
+        self.read_error       = c_int16(0)     # для хранения ошибок ф-ии CiRead()
+        self.check_num        = c_int16(-1)     # 
         self.old_cnt1 = 0
         self.new_cnt1 = 0
         self.old_cnt2 = 0

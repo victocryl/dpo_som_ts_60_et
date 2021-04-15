@@ -11,6 +11,7 @@ import tab_commands         # модуль вкладки Комманды
 import tab_statuses         # модуль вкладки Статусы
 import tab_failuries        # модуль вкладки Ошибки
 import tab_params           # модуль вкладки Параметры
+import sub
 
 
 class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
@@ -19,11 +20,14 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.setupUi(self)  # нужно для инициализации design.py
 
         self.i = 0                      # счётчик срабатываний таймера
+        self.k = 0                      # счётчик
 
         self.t = QTimer(self)           # создаём объект многоцелевого таймера и запускаем его
         self.t.start(1000)
         self.t2 = QTimer(self)          # создаём объект таймера опред. активной УКВ и запускаем его
         self.t2.start(1000)
+        self.t3 = QTimer(self)          # создаём объект таймера аварийной перезагрузки адаптера Марафон
+        self.t3.start(2000)
 
         # self.num = c_uint16(3)
         # self.ptr_num = pointer(self.num)
@@ -49,6 +53,7 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         ################ КОННЕКТЫ ################################################################################
         self.t.timeout.connect(self.on_timer)
         self.t2.timeout.connect(self.on_timer2)
+        self.t3.timeout.connect(self.on_timer3)
     
 
 
@@ -101,9 +106,31 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         self.Can_cor.tx_ukv_1[7] = self.i
         self.Can_cor.tx_ukv_2[7] = self.i
 
+    # @brief  Метод слота таймера на определение активной УКВ
+    # @param  None
+    # @retval None
     def on_timer2(self):
         # определение активной УКВ
         self.Can_cor.ukv_active_determine()
+
+    # @brief  Метод слота таймера на перезагрузку адаптера в случае ошибки
+    # @param  None
+    # @retval None
+    def on_timer3(self):
+        if sub.can_status == sub.ON:
+            if self.Can_cor.read_error.value == -1:
+                self.Can_init.lib.CiStop(self.Can_init.chan.value)    # останавливаем канал CiStop()
+                self.Can_init.lib.CiClose(self.Can_init.chan.value)   # закрываем канал CiClose()
+
+                self.Can_init.lib.CiOpen(self.Can_init.chan.value, self.Can_init.flags.value)     # открываем канал
+                ############# конфигурирование канала ##################################################################
+                self.Can_init.lib.CiRcQueResize(self.Can_init.chan.value, 10)         # задаём размер приёмной очереди
+                self.Can_init.lib.CiSetBaud(self.Can_init.chan.value, 0x01, 0x1c)     # задаём скорость 250 кбит/с
+                ############# запуск канала CiStart() ##################################################################
+                # входящий параметр self.chan определён ранее
+                self.Can_init.lib.CiStart(self.Can_init.chan.value)     # запускаем канал
+
+
 
 
 
