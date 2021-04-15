@@ -203,8 +203,10 @@ class Statuses:
         # бит Клапан 1-го контура включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[1] & sub.BIT1):
             self.mainwind.checkBox_197.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_27.setCheckState(Qt.Checked)
         else:
             self.mainwind.checkBox_197.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_27.setCheckState(Qt.Unchecked)
         
         # бит Компрессор 1 включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[1] & sub.BIT2):
@@ -217,14 +219,19 @@ class Statuses:
         # бит Байпас контура 1 включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[1] & sub.BIT3):
             self.mainwind.checkBox_194.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_112.setCheckState(Qt.Checked)
+
         else:
             self.mainwind.checkBox_194.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_112.setCheckState(Qt.Unchecked)
         
-        # бит Регулировка произв. компрессора 1 включена
+        # бит Клапан 2-го контура включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[1] & sub.BIT5):
             self.mainwind.checkBox_198.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_111.setCheckState(Qt.Checked)
         else:
             self.mainwind.checkBox_198.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_111.setCheckState(Qt.Unchecked)
         
         # бит Компрессор 2 включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[1] & sub.BIT6):
@@ -237,8 +244,10 @@ class Statuses:
         # бит Регулировка произв. компрессора 2 включена
         if (self.mainwind.Can_cor.rx_ukv_2_2[1] & sub.BIT7):
             self.mainwind.checkBox_180.setCheckState(Qt.Checked)
+            self.mainwind.checkBox_100.setCheckState(Qt.Checked)
         else:
             self.mainwind.checkBox_180.setCheckState(Qt.Unchecked)
+            self.mainwind.checkBox_100.setCheckState(Qt.Unchecked)
         
         # бит Вентилятор конденсатора 1 включен
         if (self.mainwind.Can_cor.rx_ukv_2_2[2] & sub.BIT1):
