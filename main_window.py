@@ -19,6 +19,11 @@ class MainWinowApp(QtWidgets.QMainWindow, interface.Ui_MainWindow):
         super().__init__()  # нужно для доступа к переменным, методам и т.д. в файле design.py
         self.setupUi(self)  # нужно для инициализации design.py
 
+        # вывод версии ПО
+        self.label_9.setNum(sub.version_main)
+        self.label_30.setNum(sub.version_major)
+        self.label_32.setNum(sub.version_minor)
+
         self.i = 0                      # счётчик срабатываний таймера
         self.k = 0                      # счётчик
 
